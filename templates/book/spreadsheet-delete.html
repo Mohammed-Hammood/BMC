@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block head %}
+    <title>{% block title %}{{ object.title }}{% endblock %}</title>
+{% endblock %}
+{% block body %}
+    <div class="main-container">
+        <div class="main-objects-container">
+            <div  class="single-object-container" >
+                <div class="card">
+                    <div class="card-header bg-danger">
+                        <strong class="responsive-text-16">{% trans 'Confirm Delete' %}</strong>
+                    </div>
+                    <div class="card-body" >
+                        <div class="text-container">
+                            <strong class="responsive-text-16" >
+                                {% trans 'Are you sure that you want to delete this spreadsheet' %}
+                                <a href="{{ object.get_absolute_url }}">
+                                    {{ object.title }}
+                                </a>?
+                            </strong><br>
+                        </div>
+                        <div class="buttons-container" style="display: block;margin-top:15px;">
+                            <form method="post" action="">{% csrf_token %}
+                                <div class="btn-group d-flex">
+                                    <button type="submit" class="btn btn-primary responsive-text-15 w-100">
+                                        <span class="fa fa-trash"></span>
+                                        <span class="responsive-text-15">{% trans 'Delete' %}</span>
+                                    </button>
+                                    <a href="{{ object.get_absolute_url }}" class="btn btn-danger  w-100 responsive-text-15">
+                                        <span class="fa fa-times"></span>
+                                        <span class="responsive-text-15">{% trans 'Cancel' %}</span>
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

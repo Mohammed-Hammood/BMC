@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% block body %}
+<div  class="col-lg-5 col-md-8 col-sm-12" style="padding:0;margin: auto">
+    <div class="card">
+        <div class="card-header bg-primary">
+            <strong class="responsive-text-15">{% trans 'Register' %}</strong>
+        </div>
+        <div class="card-body">
+            <form  method="POST" action="" data-validate-username-url="">{% csrf_token %}
+            {% for field in form %}
+                {% include "general/form-template.html" %}
+            {% endfor %}
+                <div class="info-container">
+                    <div class="alert alert-info responsive-text-15">
+                        {% trans 'Note: If you are already a member, you can' %}
+                        <a href="{% url 'account_app:login' %}">
+                            {% trans 'Log in' %}
+                        </a>
+                    </div>
+                </div>
+            <div class="btn-group d-flex">
+                <button type="submit" class="btn btn-primary w-100 responsive-text-15">
+                    <span class="fa fa-sign-in-alt"></span> {% trans 'Sign Up' %}</button>
+                <button type="reset" class="btn btn-primary w-100 responsive-text-15">
+                    <span class="fa fa-times"></span> {% trans 'Cancel' %}</button>
+            </div>
+        </form>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $("#id_username").change(function () {
+      console.log( $(this).val() );
+      var username = $(this).val();
+      var form = $(this).closest('form');
+
+      $.ajax({
+          url: form.attr('data-validate-username-url'),
+
+
+          dataType: 'json',
+          {#data: {"username": username},#}
+          data: form.serialize(),
+          success: function (data) {
+              if (data.is_taken){
+                alert(data.error_message);
+              }
+          }
+
+
+      })
+    });
+
+
+    function helpTextToggle(type) {
+        var helpIcon = document.getElementById(type+"_help_field_icon");
+        var helpText = document.getElementById(type+"_help_text_container");
+        if (helpText.style.display === "none"){
+            helpText.style.display = "block";
+        }
+        else {
+            helpText.style.display = "none";
+        }
+    }
+
+    function passwordToggle(type) {
+        var password = document.getElementById(type);
+        var icon = document.getElementById(type+"_icon");
+        var title = document.getElementById(type+"_title");
+        if (password.type === "password"){
+            password.type = "text";
+            icon.className = "fa fa-unlock-alt";
+            title.title = "Hide password";
+        }
+        else {
+             password.type = "password";
+            icon.className = "fa fa-lock";
+             title.title = "Show password";
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,5 @@
+<a class="card-link" href="{{ tag.get_absolute_url }}" onclick="tagViewInc('{{ tag.type }}', '{{ tag.slug }}')" id="{{ tag.type }}_tag_{{ tag.slug }}_id" style="margin:0;cursor:pointer;">
+    <div class="single-tag-container" style="display:inline-block; position:relative;">
+        <div class="card responsive-text-14" style="display:inline-block;float:left;padding:0 3px 0 3px;">{{ tag.title }}</div>
+    </div>
+</a>

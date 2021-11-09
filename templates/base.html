@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load i18n %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+<head>
+    <title>{% block title %}{% endblock %} </title>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="{% trans 'description' %}" content="{% trans 'Basrah medical college, is social media, video, audio, books sharing and news publishing, free resources, free education' %}" >
+    <meta name="{% trans 'keywords' %}" content="{% trans 'Basrah medical college, ask, social media, video, audio, book, news, posts, comments, pdf, message, resources, storage, upload, download, like, dislike, authors, chat, education' %}">
+    <meta name="{% trans 'website' %}" content="{% trans 'Basrah medical college' %}">
+    {% block head %}
+    {% endblock %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+{#    <script src="{% static 'js/jquery3.3.1.js' %}"></script>#}
+    <link rel="stylesheet" href="{% static 'css/general-css-1210.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/responsive-css.-111233.css' %}" type="text/css">
+    <link rel="shortcut icon" href="{% static 'img/cdn/website-logo.png' %}" type="image/x-icon">
+</head>
+<body style="background-color: teal">
+<nav class="navbar navbar-expand-md bg-dark navbar-dark" style="z-index:2;width:100%;position:fixed;">
+    <a class="navbar-brand" href="{% url 'book_app:home' %}">
+           <img src="{% static 'img/cdn/website-logo.png' %}" alt="Logo" style="width:30px;height:30px;border-radius:5px;">
+          <span class="responsive-text-16">{% trans 'Basrah Medical College' %}</span> </a>
+  <button class="navbar-toggler responsive-text-15" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar" style="">
+        <ul class="navbar-nav" >{% if request.user.is_superuser %}
+            <li class="nav-item">
+            <a class="nav-link responsive-text-16" href="{% url 'book_app:book-upload' %}">
+                <span class="fa fa-plus"></span>
+                {% trans 'Upload' %}
+            </a>
+            </li>{% endif %}
+            <li class="nav-item">
+            <a class="nav-link responsive-text-16" href="{% url 'account_app:uploaders' %}">
+                <span class="fa fa-users"></span>
+                {% trans 'Uploaders' %}</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link responsive-text-16" href="{% url 'book_app:liked-books' %}">
+                <span class="fa fa-thumbs-up"></span>
+                 {% trans 'Liked Books' %}
+            </a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link responsive-text-16" href="{% url 'notifications_app:home' %}">
+                {% if unread_notifications > 0 %}
+                <span class="notification-icons">{{ unread_notifications }}</span>
+                {% endif %}
+                <span class="fa fa-bell"></span>
+            </a>
+            </li>
+            <!--- dropdown -->
+            <li class="nav-item dropdown" >
+             {% if request.user.is_authenticated %}
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    <img {% if user_profile.picture %}src="{{ user_profile.picture.url }}" {% else %}src="{{ user_profile.picture_cdn }}"{% endif %}  style="height:25px;width:25px;border-radius:3px;">
+                    <span class="caret"></span>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item responsive-text-16" href="{% url 'account_app:profile' request.user %}"><span class="fa fa-user"></span> {% trans 'Profile' %}</a>
+                    <a class="dropdown-item responsive-text-16" href="{% url 'account_app:account-edit' %}"><span class="fa fa-cog"></span> {% trans 'Settings' %}</a>
+                    <a class="dropdown-item responsive-text-16" href="{% url 'account_app:logout' %}"><span class="fa fa-sign-out-alt"></span> {% trans 'Logout' %}</a>
+                </div>
+             {% else %}
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+            {% trans 'Account' %}
+            </a>
+            <div class="dropdown-menu">
+            <a class="dropdown-item responsive-text-16" href="{% url 'account_app:register' %}"><span class="fa fa-user-plus"></span> {% trans 'Sign Up' %}</a>
+            <a class="dropdown-item responsive-text-16" href="{% url 'account_app:login' %}"><span class="fa fa-sign-in-alt"></span> {% trans 'Login' %}</a>
+            </div>
+             {% endif %}
+            </li>
+            <!--- dropdown -->
+        </ul>
+  </div>
+</nav>
+<div class="body-container" style="top:50px;width:100%;display:block;position:relative;margin:0;padding:10px;">
+    {% block body %}
+    {% endblock %}
+</div>
+</body>
+</html>

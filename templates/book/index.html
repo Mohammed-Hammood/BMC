@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% block head %}
+<title>{% block title %}{% trans 'Basrah Medical College' %}{% endblock %}</title>
+{% endblock %}
+{% block body %}
+    <div class="main-side-container col-lg-4 col-md-5 col-sm-12" style="margin-bottom:15px;padding:0 3px 0 3px;position:sticky; position:-webkit-sticky;float:right;">
+        {% include 'book/includes/books-search-container.html' %}
+    </div>
+    <div class="main-container col-lg-8 col-md-7 col-sm-12" style="display:block;padding:0;float:left;">
+        <div class="main-objects-container sc" id="main_objects_container_id">
+            {% for book in books %}
+                {% include 'book/includes/single-book-base-container.html' %}
+            {% endfor %}
+        </div>
+        <div class="main-objects-loader-container" id="main_objects_loader_container_id" style="{% if total_objects < 5 %}display:none;{% endif %}">
+            {% include "general/objects-loader-base-container.html" %}
+        </div>
+    </div>
+    <div class="hidden-elements-container">
+        <input type="hidden" id="total_objects_id" value="{{ total_objects }}">
+        <input type="hidden" id="search_value_id" value="{{ request.GET.search }}">
+        <input type="hidden" id="category_value_id" value="{{ request.GET.c }}">
+    </div>
+    <div class="scripts-container">
+        {% include 'book/includes/book-main-urls-container.html' %}
+        {% include 'general/general-urls-container.html' %}
+        <script src="{% static 'js/general_javascript-101.js' %}"></script>
+        <script src="{% static 'js/main-js.-223.js' %}"></script>
+    </div>
+{% endblock %}

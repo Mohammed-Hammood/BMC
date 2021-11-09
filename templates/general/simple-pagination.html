@@ -1,0 +1,61 @@
+{% load i18n %}
+<style>
+@media screen and (max-width: 400px) {
+
+    .page-link {
+        font-size: 10px;
+    }
+
+    .icons-paginator-container {
+        display: inline;
+    }
+}
+</style>
+<div class="pagination-container">
+
+    <ul class="pagination">
+        <li {% if objects_list.has_previous %}class="page-item"
+            {% else %}class="page-item disabled" {% endif %}>
+            <a {% if objects_list.has_previous %}class="page-link"
+             href="?{{ static_page_var }}=1"
+                {% else %}class="page-link" {% endif %}>
+                <span class="icons-paginator-container"> &laquo;</span>
+                 {% trans 'First' %}
+            </a>
+        </li>
+
+        <li {% if objects_list.has_previous %}class="page-item" {% else %}class="page-item disabled" {% endif %}>
+          <a {% if objects_list.has_previous %}class="page-link"
+             href="?{{ static_page_var }}={{ objects_list.previous_page_number }}"
+          {% else %}class="page-link" {% endif %}>
+            {% trans 'Previous' %}
+          </a>
+        </li>
+
+        <li class="page-item active">
+          <a class="page-link "  href="#">
+              {{ objects_list.number }} {% trans 'of' %} {{ objects_list.paginator.num_pages }}
+          </a>
+        </li>
+        <li  {% if objects_list.has_next %}class="page-item"
+          {% else %}class="page-item disabled" {% endif %}>
+          <a class="page-link" {% if objects_list.has_next %}
+             href="?{{ static_page_var }}={{ objects_list.next_page_number }}"{% else %}
+                    {{ objects_list.number }}
+            {% endif %}>
+            {% trans 'Next' %}
+          </a>
+        </li>
+
+        <li  {% if objects_list.has_next %}class="page-item"
+          {% else %}class="page-item disabled" {% endif %}>
+          <a class="page-link" {% if objects_list.has_next %}
+             href="{{ path }}?{{ static_page_var }}={{ objects_list.paginator.num_pages }}"{% else %}
+             {{ objects_list.number }}
+            {% endif %}>
+            {% trans 'Last' %}
+              <span class="icons-paginator-container"> &raquo;</span>
+          </a>
+        </li>
+    </ul>
+</div>

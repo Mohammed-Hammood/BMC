@@ -1,0 +1,24 @@
+<script type="text/javascript">
+    var __general_comment_count_url__ = "{% url 'book_app:comments-count' %}";
+    var __general_comment_delete_url__ = '{% url 'book_app:general-comment-delete' %}';
+    var __general_comment_dislike_toggle_url__ = '{% url 'book_app:comment-dislike-toggle' %}';
+    var __general_comment_like_toggle_url__ = '{% url 'book_app:comment-like-toggle' %}';
+    var __get_general_comment_form_url__ = '{% url 'book_app:get-comment-form' %}';
+    var __save_comment_changes_url__ = '{% url 'book_app:save-comment-changes' %}';
+    var __general_comment_add_url__ = "{% url 'book_app:general-comment-add' %}";
+    var __general_comments_sort_url__ = "{% url 'book_app:general-comments-sort' %}";
+    var __general_comments_load_url__ = "{% url 'book_app:general-comments-load' %}";
+    var __general_object_like_toggle_url__ = "{% url 'book_app:object-like-toggle' %}";
+    var __general_object_dislike_toggle_url__ = "{% url 'book_app:object-dislike-toggle' %}";
+    var __general_objects_loader_url__ = "{% url 'book_app:general-objects-loader' %}";
+    var __tag_views_inc_url__ = "{% url 'book_app:tags-views-inc' %}";
+    var __object_download_increment_url__ = "{% url 'book_app:download-increment' %}";
+    var __object_views_increment_url__ = "{% url 'book_app:views-increment' %}";
+    var __add_tags_to_model_url__ = "{% url 'book_app:tags-to-model' %}";
+    var __general_tags_create_url__ = "{% url 'book_app:tags-create' %}";
+    var __general_follow_url__ = "{% url 'book_app:uploader-follow-toggle' %}";
+</script>
+<script>
+    $.ajaxSetup({data: {csrfmiddlewaretoken: '{{ csrf_token }}'}});
+    var csrf_token = "{{ csrf_token }}";
+</script>

@@ -1,0 +1,82 @@
+{% load i18n %}
+<div class="comment-container" id="comment_container_{{ comment.id }}">
+    {% if request.user == comment.user %}
+    <div class="comments-menu-container" style="display:none; margin:0px 30px 5px 30px;" id="comment_menu_options_container_id_{{ comment.id }}">
+        <div class="card-body" style="padding:0px;">
+            <div class="btn-group d-flex">
+                <button class="btn btn-outline-primary w-100 responsive-text-14" onclick="getcommentForm('{{ comment.id }}')">
+                    <span class="fa fa-edit"></span>
+                    <span class="responsive-text-14">{% trans 'Edit' %}</span>
+                </button>
+                <button class="btn btn-outline-danger w-100 responsive-text-14" onclick="showHideCommentDeleteConfirm('{{ comment.id }}')">
+                    <span class="fa fa-trash"></span>
+                    <span class="responsive-text-14">{% trans 'Delete' %}</span>
+                </button>
+            </div>
+        </div>
+        <div class="confirm-delete-alert" id="confirm_delete_container_{{ comment.id }}" style="display:none;">
+            <div class="alert alert-danger">
+                <span class="responsive-text-14">{% trans 'Are you sure that you want to delete this comment?' %}</span>
+
+                <div class="btn-group">
+                    <button onclick="commentDelete('{{ comment.id }}')" class="btn btn-primary responsive-text-14" style="padding:5px;">
+                        <span class="fa fa-trash-alt"></span>
+                        <span class="responsive-text-14">{% trans 'Delete' %}</span>
+                    </button>
+                    <button style="padding:5px;" class="btn btn-danger responsive-text-14" onclick="showHideCommentDeleteConfirm('{{ comment.id }}')">
+                        <span class="fa fa-trash"></span>
+                        <span class="responsive-text-14">{% trans 'Cancel' %}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="media">
+        <div class="media-left">
+            <div class="user-image">
+                {% for profile in profiles %}
+                {% if profile.user == comment.user %}
+                    <img {% if profile.picture %} src="{{ profile.picture.url}}" {% else %}
+                    src="{{ profile.picture_cdn }}" {% endif %} class="responsive-circle-45" />
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="comment-sidebar-container" style="cursor:pointer;position:absolute;margin-left:12px;
+        margin-top:50px;">
+            <div class="responsive-text-14" >
+                <span class="fa fa-list" onclick="showHideCommentOptions('{{ comment.id }}')"></span>
+            </div>
+        </div>
+        <div class="media-body" style="float:left; background: white; border-radius: 25px;margin-bottom:20px; padding:10px;">
+            <a href="{{ comment.get_profile_url }}">
+                <span class="responsive-text-15">{{ comment.user.get_full_name }}</span>
+            </a>
+            <div class="responsive-text-15" style="margin-bottom:10px;">
+                {{ comment.comment }}
+            </div>
+            <div class="like-dislike-container" style="display: inline;">
+                <div class="responsive-text-15" style="display: inline;float:left;">
+                    <div class="like-btn" onclick="commentLikeToggle('{{ comment.id }}')" id="comment_like_btn_{{ comment.id }}" style="margin-left:5px;float:left;display:inline;cursor:pointer;
+                        {% if request.user in comment.like.all %}color:blue;{% else %}color:black;{% endif %}">
+                        <span id="comment_like_count_{{ comment.id }}">{{ comment.like.count }}</span>
+                        <span class="fa fa-thumbs-up"></span>
+                    </div>
+                    <div class="dislike-btn" onclick="commentDislikeToggle('{{ comment.id }}')" id="comment_dislike_btn_{{ comment.id }}" style="margin-left:10px;float:left;display:inline;cursor:pointer;
+                        {% if request.user in comment.dislike.all %}color:blue;{% else %}color:black;{% endif %}">
+                        <span id="comment_dislike_count_{{ comment.id }}">{{ comment.dislike.count }}</span>
+                        <span class="fa fa-thumbs-down"></span>
+                    </div>
+                </div>
+                <div class="responsive-text13" style="float:left;margin-left:10px;">
+                    <a href="" style="color: #9d9d9d;">
+                         <span class="fa fa-clock"></span>
+                        {{ comment.timestamp|timesince }} {% trans 'ago' %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

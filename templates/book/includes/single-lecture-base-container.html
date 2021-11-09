@@ -1,0 +1,19 @@
+{% load i18n %}
+<a href="{% url 'book_app:lecture-detail' slug=object.spreadsheet.slug lecture_id=object.id %}" class="single-object-container" id="{{ object.slug }}_single_object_container_id" style="text-decoration:none;margin-bottom:10px;display:block;color:black;">
+    <div class="card">
+        <div class="card-body" style="padding:10px;display:block;">
+            <div class="book-title-container" style="display: block;">
+                <strong class="responsive-text-16" >{{ object.title }}</strong>
+            </div>
+            <div class="doctor-container responsive-text-12" style="display: block">
+                {% trans 'Doctor' %}: {{ object.doctor }}
+            </div>
+            <div class="doctor-container  responsive-text-12" >
+                {% trans 'Material' %}: {{ object.material }}
+            </div>
+            <div class="boob-info-container  responsive-text-12" style=" ">
+                 {% trans 'Published on' %}: {{ object.timestamp|date:"d/ m/ Y" }} ( {{ object.timestamp|timesince }} {% trans 'ago' %})
+            </div>
+        </div>
+    </div>
+</a>

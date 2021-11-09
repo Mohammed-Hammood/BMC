@@ -1,0 +1,58 @@
+{% load staticfiles %}
+{% load i18n %}
+<div class="main-container" >
+        <div  class="card">
+            <div class="card-header bg-primary">
+                <span class="responsive-text-16" style="color:white;">{% trans 'Login' %}</span>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="" enctype="multipart/form-data" style="margin:0;">{% csrf_token %}
+                    {% for field in login_form %}
+                        {% include "general/form-template.html" %}
+                    {% endfor %}
+                    <div class="info-container" style="margin-top:10px;">
+                        <div class="alert alert-info responsive-text-15" style="margin:0;">
+                            {% trans "If you are not a member, you can" %}
+                            <a class="responsive-text-15" href="{% url 'account_app:register' %}">{% trans 'Register' %}</a>
+                        </div>
+                    </div>
+                    <div  class="btn-group d-flex" style="margin-top:15px;">
+                        <button type="submit" class="btn btn-primary w-100 responsive-text-15">
+                            <span class="fa fa-sign-in-alt"></span> {% trans 'Login' %}
+                        </button>
+                        <button type="reset" class="btn btn-primary w-100 responsive-text-15">
+                            <span class="fa fa-times"></span> {% trans 'Cancel' %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>
+<script>
+
+    function helpTextToggle(type) {
+        var helpIcon = document.getElementById(type+"_help_field_icon");
+        var helpText = document.getElementById(type+"_help_text_container");
+        if (helpText.style.display === "none"){
+            helpText.style.display = "block";
+        }
+        else {
+            helpText.style.display = "none";
+        }
+    }
+    function passwordToggle(type) {
+        var password = document.getElementById(type);
+        var icon = document.getElementById(type+"_icon");
+        var title = document.getElementById(type+"_title");
+        if (password.type === "password"){
+            password.type = "text";
+            icon.className = "fa fa-unlock-alt";
+            title.title = "Hide password";
+        }
+        else {
+             password.type = "password";
+            icon.className = "fa fa-lock";
+            title.title = "Show password";
+        }
+    }
+</script>

@@ -1,0 +1,46 @@
+{% load i18n %}
+<div class="book-comments-container">
+
+    <div class="book-comment-sort-container" style="display: inline">
+        <div class="responsive-text-15" style="float:right; "> {% trans 'Sort' %}:
+            <select onchange="bookSortComments()" id="book_comments_sort_id" title="{% trans 'Sort the comments' %}">
+                <option>{% trans 'Latest' %}</option>
+                <option>{% trans 'Oldest' %}</option>
+                <option>{% trans 'Most liked' %}</option>
+                <option>{% trans 'Most disliked' %}</option>
+            </select>
+        </div>
+    </div>
+    <div class="comments-form-container">
+        <div class="form-container" >
+            <div class="comment-count-container">
+                <span class="responsive-text-15"  style="font-size:15px;">{% trans 'Comments' %}: </span>
+                <span class="comments-count" id="comment_count_id">{{ book.bookcommentmodel_set.count }}</span>
+            </div>
+            <div class="comment-form">
+                <form  id="comment_form_id" method="post" action="" >{% csrf_token %}
+                    {% if request.user.is_authenticated %}
+                        {{ book_comment_form.comment }}
+                    <div class="comments-btn-container">
+                        <div class="btn-group-sm d-flex">
+                            <button class="btn btn-primary" type="submit">
+                                <span class="fa fa-comment"></span>
+                                <span class="responsive-text-15">{% trans 'Comment' %}</span>
+                            </button>
+                            <button class="btn btn-primary" type="reset">
+                                <span class="fa fa-window-close"></span>
+                                <span class="responsive-text-15">{% trans 'Cancel' %}</span>
+                            </button>
+                        </div>
+                    </div>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="comments-text-container" id="comments_text_container_id" style="margin-top:20px;">
+        {% for comment in comments %}
+            {% include 'book/includes/comments-base.html' %}
+        {% endfor %}
+    </div>
+</div>

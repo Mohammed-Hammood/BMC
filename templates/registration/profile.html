@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load class_name %}
+{% load i18n %}
+{% load staticfiles %}
+{% block head %}
+<title>{% block title %}{{ profile.user }}{% endblock %}</title>
+{% endblock %}
+{% block body %}
+    <div class="profile-container col-lg-4" style="float:left;margin-bottom:15px;">
+        <div class="card">
+            <div class="card-body">
+                <div class="header-container">
+                    <div class="profile-photo-container"  style="z-index:1;justify-content: center;display: flex;">
+                        <a style="z-index:1;" {% if profile.picture %}href="{{ profile.picture.url }}" {% else %}href="{{ profile.picture_cdn }}" {% endif %} >
+                            <img style="z-index:1;border-radius:5px;border:2px outset silver;" {% if profile.picture %}src="{{ profile.picture.url }}" {% else %}src="{{ profile.picture_cdn }}" {% endif %} class="responsive-square-120">
+                        </a>
+                    </div>
+                </div>
+                <div class="right-column-container" >
+                    <div class="user-info-container responsive-text-15 bdy" style="padding:10px;">
+                        {% if request.user != profile.user %}
+                            <div class="follow-container" style="justify-content: center;display: flex;">
+                                {% include "general/uploader-follow-base.html" %}
+                            </div>{% endif %}
+                        <div class="username-container" style="display:flex; justify-content: center;color:black;padding:0;">
+                            <a class="responsive-text-16" id="profile_username_id" href="{{ profile.get_absolute_url }}">{{ profile.user.get_full_name }}</a>
+                        </div>
+                        <div class="description-container">
+                            {% if profile.description  %}{% trans 'Description' %}:  {{ profile.description }}{% endif %}
+                        </div>
+                        <div class="city-container">
+                            {% if profile.city  %}{% trans 'City' %}: {{ profile.city }}{% endif %}
+
+                        </div>
+                        <div class="country-container">
+                            {% if profile.country %}{% trans 'Country' %}: {{ profile.country }}{% endif %}
+                        </div>
+                        <div class="phone-no-container">
+                            {% if profile.phone_no %}{% trans 'Phone No' %}: {{ profile.phone_no }}{% endif %}
+                        </div>
+                        <div class="books-count">
+                            {% trans 'Books' %}: {{ profile.user.books.count }}
+                        </div>
+                        <div class="spreadsheets-container">
+                             {% trans 'Spreadsheets' %}: {{ profile.user.spreadsheets.count }}
+                            {% if profile.user.spreadsheets.count > 0 %}
+                                <a href="{% url 'book_app:spreadsheets' profile.user.username %}">{% trans 'Show All' %}</a>
+                            {% elif profile.user.spreadsheets.count == 0 and request.user == profile.user %}
+                                <a href="{% url 'book_app:spreadsheets' profile.user.username %}">{% trans 'Add Spreadsheet' %}</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="left-column-container col-lg-8" style="float:right;">
+            <div class="profile-objects-container">
+                <div class="main-objects-container" id="main_objects_container_id">
+                    {% for book in objects %}
+                        {% include 'book/includes/single-book-base-container.html' %}
+                    {% endfor %}
+                </div>
+                <div class="main-objects-loader-container" id="main_objects_loader_container_id" style="{% if total_objects < 5 %}display:none;{% endif %}">
+                    {% include "general/objects-loader-base-container.html" %}
+                </div>
+            </div>
+        </div>
+    <div class="hidden-elements-container">
+        <input type="hidden" id="search_value_id" value="{{ request.GET.search }}"/>
+        <input type="hidden" id="search_form_id" value=""/>
+        <input type="hidden" id="total_objects_id" value="{{ total_objects }}"/>
+        <input type="hidden" id="category_value_id">
+    </div>
+    <div class="modals-container">
+        {% include "general/modals-container.html" %}
+    </div>
+    <div class="scripts-container">
+        {% include 'general/general-urls-container.html' %}
+         {% include 'book/includes/book-main-urls-container.html' %}
+        <script src="{% static 'js/general_javascript-101.js' %}"></script>
+        <script src="{% static 'js/main-js.-223.js' %}"></script>
+    </div>
+{% endblock %}

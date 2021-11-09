@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block head %}
+    <title>{% block title %}{{ object.title }}{% endblock %}</title>
+{% endblock %}
+{% block body %}
+    <div class="main-container col-lg-8" style="padding:0; margin: auto;">
+        <div class="main-objects-container" id="main_objects_container_id">
+            <div  class="single-object-container" id="{{ object.slug }}_single_object_container_id" style="text-decoration:none;margin-bottom:10px;display:block;color:black;">
+                <div class="card">
+                    <div class="card-body" style="padding:10px;display:block;">
+                        <div class="book-title-container" style="display: block;">
+                            <strong class="responsive-text-16" >{% trans 'Lecture' %}: {{ object.title }}</strong>
+                        </div><hr>{% if request.user == object.spreadsheet.user or request.user in object.spreadsheet.contributors.all %}
+                        <div class="buttons-container">
+                            <div class="btn-group">
+                                <a href="{% url 'book_app:lecture-edit' id=object.id %}" class="btn btn-primary responsive-text-15">
+                                    <span class="fa fa-edit"></span>
+                                    <span class="responsive-text-15">{% trans 'Edit' %}</span>
+                                </a>{% if request.user == object.spreadsheet.user %}
+                                <a href="{% url 'book_app:lecture-delete' id=object.id %}" class="btn btn-danger responsive-text-15">
+                                    <span class="fa fa-trash"></span>
+                                    <span class="responsive-text-15">{% trans 'Delete' %}</span>
+                                </a>{% endif %}
+                            </div>
+                        </div><hr>{% endif %}
+                        <div class="doctor-container responsive-text-15" style="display: block">
+                            <strong>{% trans 'Doctor' %}: </strong>
+                            <a href="{{ object.doctor.get_absolute_url }}">{{ object.doctor }}</a>
+                        </div>
+                        <div class="doctor-container  responsive-text-15" >
+                            <strong>{% trans 'Material' %}:</strong>  {{ object.material }}
+                        </div>
+                        <div class="timestamp-container  responsive-text-15" >
+                            <strong>{% trans 'Published on' %}:</strong>  {{ object.timestamp|date:"d/ m/ Y" }} ( {{ object.timestamp|timesince }} {% trans 'ago' %})
+                        </div>
+                        <div class="update-container  responsive-text-15" >
+                            <strong>{% trans 'Last update' %}:</strong>  {{ object.update|date:"d/ m/ Y" }} ( {{ object.update|timesince }} {% trans 'ago' %})
+                        </div>
+                        <div class="update-container  responsive-text-15" >
+                            <strong>{% trans 'Views' %}:</strong>  {{ object.views }}
+                        </div>
+                        <div class="spreadsheet-container  responsive-text-15">
+                            <strong>{% trans 'Spreadsheet' %}:</strong> <a href="{{ object.spreadsheet.get_absolute_url }}">{{ object.spreadsheet }}</a>
+                        </div>
+                        <div class="share-link-container">
+                                <strong class="responsive-text-15">{% trans "Share link for social medial (copy and paste)" %}:</strong>
+                                <button style="padding:0 3px 0 3px;" onclick="copySharingLink()" class="btn btn-dark responsive-text-14" type="button" >
+                                    <span class="fa fa-copy"></span> {% trans 'Copy to clipboard' %}
+                                </button>
+                                <input hidden id="sharing_link_input_id" title="{% trans 'Copy the link for share' %}" value="{{ request.build_absolute_uri }}"/>
+                        </div>
+                        {% if object.comment %}
+                        <div class="comment-container  responsive-text-15" style="background-color: #f3f3f3;color:black;border-radius:5px;border:1px outset silver;padding:10px;margin-top:10px;">
+                            <strong>{% trans 'Comment' %}:</strong><br>
+                            {{ object.comment|linebreaksbr|urlizetrunc:30 }}
+                        </div>{% endif %}
+                        {% if object.file %}
+                            <div class="file-container  responsive-text-15" style="background-color: #f3f3f3;color:black;border:1px outset silver;padding:10px;margin-top:10px;">
+                                <strong>{% trans 'Lecture File' %}:</strong><br>
+                                {% trans 'File size' %}: {{ object.file.size|filesizeformat }}
+                                {% if file_mimetype == "application/pdf" %}
+                                    <iframe src="{{ object.file.url }}" style="overflow-x:hidden;height:500px;width:100%;"></iframe>
+                                 {% else %}
+                                    <a class="btn btn-primary responsive-text-15" href="{{ object.file.url }}" style="padding:0 5px 0 5px;">
+                                       <span class="fa fa-download"></span> {% trans 'Download' %}</a>
+                                 {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fake-elm-container">
+        <input type="hidden" id="object_type_id" value="lr">
+        <input type="hidden" id="view_inc_type_id" value="lr">
+        <input type="hidden" id="parent_slug_id" value="{{ object.id }}">
+    </div>
+    <div class="scripts-container">
+        {% include 'book/includes/book-main-urls-container.html' %}
+        <script >
+            window.addEventListener("load", setViewsIncrement);
+            function setViewsIncrement() {
+                var type = document.getElementById("object_type_id").value;
+                var parent_slug = document.getElementById("parent_slug_id").value;
+                objectViewsIncrement(type, parent_slug);
+
+            }
+            function objectViewsIncrement(type, parent_slug){
+                $.ajax({
+                    url: __object_views_increment_url__,
+                    dataType: "json",
+                    data: {"parent_slug": parent_slug, "type": type},
+                    type: "POST",
+                    success:function (data) {
+                        // do nothing..
+                    },
+                    error:function (xhr, status, err) {
+                        console.log("xhr: "+ xhr + ", status: " + status + ", err: " + err);
+                    }
+                });
+
+            }
+        </script>
+    </div>
+{% endblock %}

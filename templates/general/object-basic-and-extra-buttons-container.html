@@ -1,0 +1,50 @@
+{% load i18n %}
+<div class="basic-btns-container">
+    <div class="btn-group d-flex" id="object_base_btns_container_id">
+
+        <button class="btn btn-light w-100 responsive-text-15" onclick="objectLikeToggle('{{ object.slug }}', '{{ object.type }}')"  id="{{ object.type }}_like_btn_id_{{ object.slug }}" style="color:{% if user in object.like.all %}blue; {% else %} black;{% endif %}border-radius:0;">
+            <span id="{{ object.type }}_like_count_id_{{ object.slug }}">{{ object.like.count }}</span>
+            <i class="fa fa-thumbs-up"></i> <span class="display-none-text-410">{% trans 'Like' %}</span>
+        </button>
+
+        <button class="btn btn-light w-100 responsive-text-15" onclick="objectDislikeToggle('{{ object.slug }}', '{{ object.type }}')" id="{{ object.type }}_dislike_btn_id_{{ object.slug }}" style="color:{% if user in object.dislike.all %}blue; {% else %} black;{% endif %}">
+            <span id="{{ object.type }}_dislike_count_id_{{ object.slug }}">{{ object.dislike.count }}</span>
+            <i class="fa fa-thumbs-down"></i> <span class="display-none-text-410">{% trans 'Dislike' %}</span>
+        </button>
+        <button class="btn btn-light w-100 responsive-text-15" onclick="sectionsToggle('{{ object.slug }}', '{{ object.type }}', 'comment')">
+            <i class="fa fa-comment"></i> <span class="display-none-text-410">{% trans 'Comment' %}</span>
+        </button>
+        <button class="btn btn-light w-100 responsive-text-15" onclick="moreBtnsToggle('{{ object.slug }}', '{{ object.type }}')" style="border-radius:0;">
+            <i class="fa fa-bars"></i> <span class="display-none-text-410">{% trans 'More' %}</span>
+        </button>
+    </div>
+</div>
+<div class="extra-buttons-container" id="{{ object.type }}_more_btns_container_id_{{ object.slug }}" style="margin-top:10px;display:none;">
+    <div class="btn-group d-flex" >
+        {% if klass != "PostModel" %}
+        <button class="btn btn-dark w-100 responsive-text-15" id="{{ object.type }}_description_btn_id_{{ object.slug }}" onclick="sectionsToggle('{{ object.slug }}', '{{ object.type }}', 'description')"  style="border-radius:0;">
+            <span class="fa fa-info" ></span>
+            <span class="display-none-text-410">{% trans 'Description' %}</span>
+        </button>
+        {% endif %}
+        <button hidden id="{{ object.type }}_comment_btn_id_{{ object.slug }}"></button>
+        <button class="btn btn-dark w-100 responsive-text-15 "  id="{{ object.type }}_share_btn_id_{{ object.slug }}" onclick="sectionsToggle('{{ object.slug }}', '{{ object.type }}', 'share')">
+            <span class="fa fa-share"></span>
+            <span class="display-none-text-410">{% trans 'Share' %}</span>
+        </button>
+        {% if klass != "PostModel" %}
+        <button  class="btn btn-dark w-100 responsive-text-15"  id="{{ object.type }}_download_btn_id_{{ object.slug }}" onclick="sectionsToggle('{{ object.slug }}', '{{ object.type }}', 'download')">
+            <span class="fa fa-download"></span>
+            <span  class="display-none-text-410">{% trans "Download" %}</span>
+        </button>
+        {% endif %}
+        <button class="btn btn-dark w-100 responsive-text-15"  id="{{ object.type }}_tags_btn_id_{{ object.slug }}" onclick="sectionsToggle('{{ object.slug }}', '{{ object.type }}', 'tags')">
+            <span class="fa fa-tags"></span>
+            <span  class="display-none-text-410">{% trans "Tags" %}</span>
+        </button>
+        <button  class="btn btn-dark w-100 responsive-text-15" id="{{ object.type }}_about_btn_id_{{ object.slug }}" onclick="sectionsToggle('{{ object.slug }}', '{{ object.type }}', 'about')" style="border-radius:0;">
+            <span class="fa fa-info-circle"></span>
+            <span  class="display-none-text-410">{% trans 'About' %}</span>
+        </button>
+    </div>
+</div>

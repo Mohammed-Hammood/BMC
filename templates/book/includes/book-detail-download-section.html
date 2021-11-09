@@ -1,0 +1,22 @@
+{% load  i18n %}
+<span class="responsive-text-15">{% trans 'Download the book from links below ' %}: </span><br>
+    <div class="download-link-container">
+        <span class="download-link-container">{% trans "1- Link" %}</span>
+        <a {% if object.file %} href="{{ object.file.url }}"{% else %} href="{{ object.file_cdn }}" {% endif %} id="download_btn_id" download="" target="_blank">
+            <span class="fa fa-download"></span> <span class="display-none-text-450">{% trans 'Download' %}</span>
+        </a>
+    </div>{% if object.download_link_1 %}
+    <div class="download-link-container">
+        <span class="download-link-container">{% trans "2- Link" %}</span>
+        <a href="{{ object.download_link_1 }}" id="download_btn_id" download="" target="_blank">
+            <span class="fa fa-download"></span> <span class="display-none-text-450">{% trans 'Download' %}</span>
+        </a>
+    </div>{% endif %}
+    {% if object.download_link_1 %}
+    <div class="download-link-container">
+        <span class="download-link-container">{% trans "3- Link" %}</span>
+        <a href="{{ object.download_link_2 }}" id="download_btn_id" download="" target="_blank">
+            <span class="fa fa-download"></span> <span class="display-none-text-450">{% trans 'Download' %}</span>
+        </a>
+    </div>{% endif %}
+

@@ -1,0 +1,14 @@
+{% load i18n %}
+<a href="{% url 'book_app:spreadsheet-detail' slug=object.slug username=object.user.username %}" class="single-object-container" id="{{ object.slug }}_single_object_container_id" style="margin-bottom:10px;display:block;color:black;">
+    <div class="card">
+        <div class="card-body" style="padding:10px;">
+            <div class="book-title-container col-lg-9 col-sm-12" style="float:left;">
+                <span class="fa fa-table"></span>
+                <strong class="responsive-text-16" >{{ object.title }}</strong>
+            </div>
+            <div class="boob-info-container col-lg-3 col-sm-12 responsive-text-12" style="float:right; ">
+                {{ object.timestamp|date:"d /m /Y" }} ( {{ object.timestamp|timesince}} {% trans 'ago' %})
+            </div>
+        </div>
+    </div>
+</a>

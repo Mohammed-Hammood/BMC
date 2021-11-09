@@ -1,0 +1,36 @@
+{% load i18n %}
+<div class="card">
+    <div class="card-body">
+        <div class="search-container">
+            <form method="get" action="" class="form-group" id="search_form_id">
+                <input required id="search_value_id" class="form-control responsive-text-15" name="search" value="{{ request.GET.search }}" type="text" placeholder="{% trans 'Search' %}..."/>
+                <div class="btn-group d-flex" style="margin-top:5px;">
+                    <button class="btn btn-primary w-100 responsive-text-15" type="submit" >
+                        <span class="fa fa-search"></span> {% trans 'Search' %}
+                    </button>
+                    <button class="btn btn-primary w-100 responsive-text-15" type="reset">
+                        <span class="fa fa-window-close" ></span> {% trans 'Cancel' %}
+                    </button>
+                </div>
+                <div class="select-container" style="margin-top:10px;">
+                    <div class="title-container responsive-text-15">
+                        <span class="responsive-text-15">{% trans 'Select the category of book you are looing for' %}</span>
+                    </div>
+                    {% for field in category_form %}
+                    {% include "general/form-template.html" %}
+                    {% endfor %}
+                </div>
+                <div class="results-count-container" style="margin-top:10px;">
+                    {% if request.GET.search or request.user.is_superuser %}
+                        <strong class="responsive-text-15">{% trans 'Result' %}: {{ total_objects }}</strong>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+        <div class="tags-container">
+            {% for tag in tags %}
+                {% include "general/tags-base-container.html" %}
+            {% endfor %}
+        </div>
+    </div>
+</div>

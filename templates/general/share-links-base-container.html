@@ -1,0 +1,56 @@
+<style>
+    .sharing-links{
+        padding: 4px 10px 4px 10px;
+        border: 1px outset silver;
+        border-radius: 3px;
+        margin: 5px;
+        display: inline-block;
+        text-decoration: none;
+        font-family: serif;
+    }
+    .sharing-links:hover{
+        background: yellow;
+        padding: 4px 30px 4px 10px;
+        color:white;
+        text-decoration: none;
+    }
+</style>
+{% load i18n %}
+<div class="facebook-container" >
+    <div class="responsive-text-15">
+        <a class="sharing-links" style="color:#4267B2;" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+            <span class="fa fa-facebook"></span>
+            <span class="responsive-text-15">{% trans "Facebook" %}</span>
+        </a>
+    </div>
+</div>
+<div class="twitter-container">
+    <div class="responsive-text-15">
+        <a class="sharing-links" style="color:#1DA1F2;" href="https://twitter.com/home?status= {{ share_string }}%20{{ request.build_absolute_uri }}">
+            <span class="fa fa-twitter-square"></span>
+            <span class="responsive-text-15">{% trans "Twitter" %}</span>
+        </a>
+    </div>
+</div>
+<div class="google+-container">
+    <div class="responsive-text-15" >
+        <a class="sharing-links" href='https://plus.google.com/share?url={{ request.build_absolute_uri }}' style="color:red;">
+            <span class="fa fa-google-plus"></span> {% trans "Google+" %}
+        </a>
+    </div>
+</div>
+<div class="linkedin-container">
+    <div class="responsive-text-15">
+        <a class="sharing-links" style="color:#007EA4"
+           href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ object.title }}&summary={{ share_string }}&source={{ request.build_absolute_uri }}">
+            <span class="fa fa-linkedin"></span> {% trans "Linkedin" %}
+        </a>
+    </div>
+</div>
+<div class="reddit-container">
+    <div class="responsive-text-15">
+        <a class="sharing-links" style="color:orangered;" href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}&title={{ share_string }}">
+            <span class="fa fa-reddit"></span> {% trans "Reddit" %}
+        </a>
+    </div>
+</div>

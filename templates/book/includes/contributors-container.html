@@ -1,0 +1,6 @@
+{% load i18n %}
+<select title="{% trans 'Select contributor to remove' %}" class="form-control" size="3" id="contributor_remove_select_id">
+    {% for user in spreadsheet.contributors.all %}
+        <option value="{{ user.username }}">{{ user.get_full_name }}</option>
+    {% endfor %}
+</select>

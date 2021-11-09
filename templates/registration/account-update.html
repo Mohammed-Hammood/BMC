@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block title %}{{ profile.user.get_full_name }}{% endblock %}
+{% block head %}
+{% endblock %}
+{% block body %}
+<div class="main-container" style="margin: auto;">
+    <div class="card"  style="margin: auto;" >
+        <div class="card-header bg-primary">
+          {% trans 'Edit Your Account' %}
+        </div>
+        <div class="card-body responsive-text-15">
+            <form method="post" action="" enctype="multipart/form-data"> {% csrf_token %}
+                {{ user_form |crispy }}
+                {{ profile_form |crispy }}
+                 <div class="password-reset-link">
+                     {% trans "To change your password" %}:
+                            <a href="{% url 'account_app:password-change' %}">{% trans "click here" %}</a>
+                 </div>
+                 <div class="password-reset-link">
+                     {% trans "To delete your account" %}:
+                            <a href="{% url 'account_app:account-delete' %}">{% trans "click here" %}</a>
+                 </div><br>
+                <div class="buttons-container">
+                    <div class="btn-group d-flex">
+                        <button type="submit" class="btn btn-primary w-100 responsive-text-15">
+                            <span class="fa fa-save"></span> {% trans 'Save' %}
+                        </button>
+                        <a href="{{ profile.get_absolute_url }}" class="btn btn-light w-100 responsive-text-15">
+                            <span class="fa fa-times"></span> {% trans 'Cancel' %}
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

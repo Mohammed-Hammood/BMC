@@ -1,0 +1,10 @@
+{% load i18n %}
+<div class="follow-container" style="margin-bottom:15px;">
+    <button style="padding:0 15px 0 15px;height:30px;" type="button" class="btn {% if request.user in profile.follow.all %}btn-light{% else %}btn-dark{% endif %} responsive-square-120 responsive-text-15" id="{{ profile.user.id }}_follow_btn_id" {% if request.user.is_authenticated %}onclick="followToggle('{{ profile.user.id }}')" {% else %}onclick="loginModal()"{% endif %}>
+        <span id="{{ profile.user.id }}_follow_count_id">{{ profile.follow.count }}</span>
+        <span class="fa fa-rss"></span>
+        <span id="{{ profile.user.id }}_follow_text_status_id">
+            {% if request.user in profile.follow.all %}{% trans "UnFollow" %}{% else %}{% trans "Follow" %}{% endif %}
+        </span>
+    </button>
+</div>

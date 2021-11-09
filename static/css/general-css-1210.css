@@ -1,0 +1,54 @@
+.comments-loader-container{
+    display:flex;
+    justify-content: center;
+    margin-top:10px;
+    margin-bottom:10px;
+    padding:5px;
+    border-radius:5px;
+    cursor: pointer;
+    color:black;
+}
+.comments-loader-container:hover{
+    background: rgba(96, 96, 93, 0.08);
+    box-shadow: 0 5px 20px black;
+    margin-bottom:8px;
+    border:1px outset silver;
+
+}
+div[class="objects-loader-container"], #notification_loader_container_id{
+    display:flex;
+    justify-content: center;
+    margin-top:10px;
+    margin-bottom:10px;
+    padding:5px;
+    border-radius:5px;
+    cursor: pointer;
+    color:black;
+}
+div[class="objects-loader-container"], #notification_loader_container_id:hover{
+    background: #DCDFE4;
+    box-shadow: 0 5px 20px black;
+    margin-bottom:8px;
+    border:1px outset silver;
+
+}
+.notification-icons{
+    display:block;
+    position:absolute;
+    margin-top:-10px;
+    color:white;
+    width:22px;
+    background: red;
+    padding:1px;
+    height:20px;
+    text-align:center;
+    font-size:11px;
+    border-radius:10px;
+}
+.notification-icons:hover{
+    color: #ff1708;
+    background: #ffd500;
+}
+.sc {
+    -webkit-overflow-scrolling: touch;
+    }

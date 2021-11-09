@@ -1,0 +1,88 @@
+{% load i18n %}
+<div class="object-sections-container" id="{{ object.type }}_sections_container_id_{{ object.slug }}">
+    <div class="object-sections" id="{{ object.type }}_comment_section_id_{{ object.slug }}">
+        {% include "home/includes/general/general-comments-section-container.html" %}
+    </div>
+     {% if klass != "PostModel" %}
+    <div class="object-sections" id="{{ object.type }}_description_section_id_{{ object.slug }}" style="display: none;">
+        <div class="responsive-text-15">
+            {{ object.description }}
+        </div>
+    </div>
+    {% endif %}
+    <div class="object-sections" id="{{ object.type }}_share_section_id_{{ object.slug }}" style="display:none;">
+        {% include "home/includes/general/share-links-base-container.html" %}
+    </div>
+    {% if klass != "PostModel" %}
+    <div class="object-sections" id="{{ object.type }}_download_section_id_{{ object.slug }}" style="display: none;">
+        <div class="responsive-text-15">
+            <span class="fa fa-download"></span>{% trans "Size" %}: {{ object.file.size | filesizeformat }}
+            <a class="btn btn-bd-download" href="{{ object.file.url }}" download=""> {% trans "Download" %} </a>
+        </div>
+    </div>
+    {% endif %}
+    <div class="object-sections" id="{{ object.type }}_tags_section_id_{{ object.slug }}" style="display: none;">
+        <div class="responsive-text-15">
+            {% if object.tags %}
+                {% for tag in object.tags.all %}
+                    <p>
+                        <a href="{{ tag.get_absolute_url }}">{{ tag }}</a>
+                    </p>
+                {% endfor %}
+            {% else %}
+               <span>
+               {% trans 'There are no tags yet' %}
+               </span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="object-sections" id="{{ object.type }}_about_section_id_{{ object.slug }}" style="display: none;">
+        <div class="responsive-text-15">
+                {% if klass == 'VideoModel' %}
+            <div class="channel-container">
+                {% trans 'Channel' %}: <a href="{{ object.channel.get_absolute_url }}">{{ object.channel.title }}</a>
+            </div>
+                {% elif klass == 'BookModel' %}
+            <div class="library-container">
+                {% trans 'Library' %}: <a href="{{ object.library.get_absolute_url }}">{{ object.library.title }}</a>
+            </div>
+                {% elif klass == 'AudioModel' %}
+            <div class="studio-container">
+                {% trans 'Studio' %}: <a href="{{ object.studio.get_absolute_url }}">{{ object.studio.title }}</a>
+            </div>
+                {% endif %}
+            <div class="admin-container">
+                {% trans 'Admin' %}: <a href="{{ object.get_profile_url }}">{{ object.user.get_full_name }}</a>
+            </div>
+            <div class="timestamp-container">
+                {% trans 'Published on' %}:  {{ object.timestamp }} ({{ object.update|timesince }} {% trans 'ago' %})
+            </div>
+            <div class="update-container">
+                {% trans 'Last updated' %}:  {{ object.update }} ({{ object.update|timesince }} {% trans 'ago' %})
+            </div>
+            <div class="size-container">
+                {% if klass == "PostModel" %}
+                    {% if object.image %}{% trans 'Image Size' %}: {{ object.image.size | filesizeformat }}{% endif %}
+                {% else %}{% trans 'Size' %}: {{ object.file.size | filesizeformat }}{% endif %}
+            </div>
+            <div class="shares-container">
+                {% trans 'Shares' %}: {{ object.share }}
+            </div>{% if klass != "PostModel" %}
+            <div class="download-container">
+                {% trans 'Downloads' %}: {{ object.download }}
+            </div>{% endif %}
+            <div class="views-container">
+                {% trans 'Views' %}: {{ object.views }}
+            </div>
+            <div class="likes-container">
+                {% trans 'Likes' %}: {{ object.like.count }}
+            </div>
+            <div class="dislike-container">
+                {% trans 'Dislikes' %}: {{ object.dislike.count }}
+            </div>
+            <div class="comments-container">
+                {% trans 'Comments' %}: <span id="{{ object.type }}_comments_count_id_{{ object.slug }}"> {{ object.comments.count }}</span>
+            </div>
+        </div>
+    </div>
+</div>

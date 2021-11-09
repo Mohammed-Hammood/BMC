@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block head %}
+    <title>{% block title %}{% trans 'Liked Books: World of Technology' %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/general-css-1210.css' %}">
+{% endblock %}
+{% block body %}
+    <div class="main-side-container" style="margin-bottom:15px;">
+        <div class="card">
+            <div class="card-header bg-primary" style="color:white;">
+                {% if liked_books_count > 0 %}<span class="fa fa-heart"></span><span class="responsive-text-16"> {% trans "Books you liked" %}</span> ({{ liked_books_count }}){% else %}
+                 <span class="responsive-text-16">{% trans "You haven't liked any book yet" %}</span>{% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="main-container">
+        <div class="main-objects-container" id="main_objects_container_id">
+            {% for book in liked_books %}
+                {% include 'book/includes/single-book-base-container.html' %}
+            {% endfor %}
+        </div>
+        <div class="main-objects-loader-container" id="main_objects_loader_container_id" style="{% if total_objects < 5 %}display:none;{% endif %}">
+            {% include "general/objects-loader-base-container.html" %}
+        </div>
+    </div>
+
+    <div class="fake-elm-container">
+        <input type="hidden" id="total_objects_id" value="{{ total_objects }}">
+        <input type="hidden" id="search_value_id" value="{{ request.GET.search }}">
+        <input type="hidden" id="search_form_id" >
+        <input type="hidden" id="category_value_id">
+    </div>
+    <div class="scripts-container">
+        {% include 'book/includes/book-main-urls-container.html' %}
+        {% include 'general/general-urls-container.html' %}
+        <script src="{% static 'js/general_javascript-101.js' %}"></script>
+        <script src="{% static 'js/main-js.-223.js' %}"></script>
+    </div>
+{% endblock %}

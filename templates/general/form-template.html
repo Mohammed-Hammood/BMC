@@ -1,0 +1,58 @@
+{% load i18n %}
+<div class="form-group" style="z-index:1;color:black;">
+    <div class="errors-container">
+        {% if field.errors %}
+        <div class="alert alert-warning">
+            <span class="responsive-text-15">{% trans 'Warning' %}:</span>
+            <span class="responsive-text-15">{{ field.errors }}</span>
+        </div>
+        {% endif %}
+    </div>
+    <div class="errors-container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-info">
+                    <span class="responsive-text-15">{% trans 'Message' %}</span>:
+                    <span class="responsive-text-15">{{ message }}</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="field-container" >
+          {% if field.initial %}
+              {% if field.name == "image" or field.name == "thumbnail" or field.name == "icon" or field.name == "background" %}
+                  <div class="initial-value-container">
+                      <span class="responsive-text-15">{% trans "Current" %} {{ field.html_name }}:</span><br>
+                      <a href="/media/{{ field.initial }}">
+                          <img src="/media/{{ field.initial }}" class="responsive-square-95" style="object-fit: cover;border:1px outset silver; border-radius: 3px;">
+                      </a>
+                  </div>
+                  <label style="display:inline;" class="control-label responsive-text-15" for="{{ field.id_for_label }}">
+                        {% trans "Change" %}:
+                  </label>
+                  {% else %}
+                    <label style="display:inline;" class="control-label responsive-text-15" for="{{ field.id_for_label }}">
+                        {{ field.label_tag }}
+                    </label>
+                  {% endif %}
+          {% else %}
+            <label style="display:inline;" class="control-label responsive-text-15" for="{{ field.id_for_label }}">
+                {{ field.label_tag }}
+            </label>
+        {% endif %}
+        <div class="input-group mb-3 responsive-text-15" title="{{ field.label }}" style="margin:0;">
+                {{ field }}
+            {% if field.name == "password" %}
+                <div onclick="passwordToggle('{{ field.id_for_label }}')" class="input-group-append" style="cursor: pointer;" id="{{ field.id_for_label }}_title" title="{% trans 'Show password' %}">
+                    <span class="input-group-text">
+                        <span id="{{ field.id_for_label }}_icon" class="fa fa-lock"></span>
+                    </span>
+                </div>
+            {% endif %}
+        </div>
+    </div>{% if field.help_text %}
+    <div class="help-container" style="margin-top:10px;;" title="{% trans 'Help' %}">
+        <span onclick="helpTextToggle('{{ field.id_for_label }}')" class="fa fa-question-circle" style="cursor: help" id="{{ field.id_for_label }}_help_field_icon"></span>
+        <span  class="alert alert-info responsive-text-15" style="display: none;word-wrap: break-word; flex-wrap: wrap;" id="{{ field.id_for_label }}_help_text_container"> {{ field.help_text }}</span>
+    </div>{% endif %}
+</div>

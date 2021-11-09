@@ -1,0 +1,12 @@
+{% load i18n %}
+ <form method="post" id="comment_update_form-{{ comment.slug }}" onsubmit="generalCUPD(event, '{{ comment.slug }}', '{{ comment.type }}')" action="" enctype="multipart/form-data">{% csrf_token %}
+     {{ general_comment_form.comment }}
+    <div class="btn-group d-flex" style="margin:0px; ">
+        <button type="submit" class="btn btn-danger w-100" id="confirm_comment_update_btn_id" >
+            <span class="fa fa-save"></span> {% trans 'Save' %}
+        </button>
+        <button type="button" id="cancel_comment_update_btn_id" class="btn btn-primary w-100" data-dismiss="modal"><span class="fa fa-close"></span>
+            {% trans 'Cancel' %}
+        </button>
+    </div>
+</form>

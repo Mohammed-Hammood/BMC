@@ -1,0 +1,55 @@
+{% load i18n %}
+<div class="single-object-container sc" id="{{ book.slug }}_single_object_container_id" style="margin-bottom:10px;">
+    <div class="card" >
+        <div class="card-body" style="padding:10px;">
+            <div class="book-title-container" style="margin-left:5px;">
+                   <strong class="responsive-text-16"><a href="{{ book.get_absolute_url }}" class="card-link" style="color:black;">{{ book.title }}</a></strong>
+            </div>
+            <div class="book-img-container col-lg-2 col-md-2 col-sm-4" style="float:left;display:flex;justify-content: center">
+                {% if book.thumbnail %}<a href="{{ book.get_absolute_url }}" >
+                    <img src="{{ book.thumbnail.url }}" class="img-fluid" style="max-height:180px;max-width:250px;width:100%;border:1px outset silver;border-radius:5px;"/></a>
+                {% else %}
+                    <a href="{{ book.get_absolute_url }}" >
+                    <img src="{{ book.thumbnail_cdn }}" class="img-fluid" style="max-height:180px;max-width:250px;width:100%;border:1px outset silver;border-radius:5px;"/></a>
+                {% endif %}
+            </div>
+            <div class="boob-info-container col-lg-10 col-md-10 col-sm-12 responsive-text-12" style="float:right; ">
+                <div class="library-container">
+                   {% trans 'Uploader' %}: <a class="responsive-text-12" href="{% url 'account_app:profile' book.user %}"> {{ book.user.get_full_name }}</a>
+                </div>{% if book.file %}
+                <div class="size-container">
+                    {% trans 'Size' %}: {{ book.file.size|filesizeformat }}
+                </div>{% endif %}
+                <div class="size-container">
+                    {% trans 'Category' %}: <a href="{% url 'book_app:categories-view' book.category %}">{{ book.category }}</a>
+                </div>
+                <div class="timestamp-container">
+                    {% trans 'Published on' %}: {{ book.timestamp|date }} ({{ book.timestamp|timesince }})
+                </div>
+                <div class="download-container">
+                    {% trans 'Download' %}: {{ book.download }}
+                </div>
+                <div class="tags-container">{% if book.tags.all %}{% trans 'Tags' %}:
+                    {% for tag in book.tags.all %}
+                        <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+                    {% endfor %}{% endif %}
+                </div>
+                <div class="authors-container">{% if book.authors.all %}{% trans 'Authors' %}:
+                    {% for author in book.authors.all %}
+                       <a href="{{ author.get_absolute_url }}">{{ author.name }}</a>
+                    {% endfor %}{% endif %}
+                </div>
+            </div>
+            <div class="book-buttons-container col-lg-10 col-md-10 col-sm-12" style="float:right;">
+                <div class="btn-group d-flex">
+                    <a class="btn btn-primary w-100 responsive-text-13" style="padding:3px 0 3px 0;;" {% if book.file %} href="{{ book.file.url }}"{% else %} href="{{ book.file_cdn }}"{% endif %}  download="" target="_blank" onclick="bookDownloadFunc('{{ book.slug }}')" >
+                        <span class="fa fa-download" ></span> {% trans 'Download' %}
+                    </a>
+                    <a class="btn btn-primary w-100 responsive-text-13" style="padding:3px 0 3px 0;" href="{{ book.get_absolute_url }}">
+                        <span class="fa fa-eye" ></span> {% trans 'Preview' %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

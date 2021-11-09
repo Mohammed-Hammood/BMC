@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block title %}{% trans 'Upload' %}{% endblock %}
+{% block body %}
+    <div class="col-lg-6 col-sm-12" style="padding:0px;margin: auto">
+        <div class="card bg-primary" style="padding:8px;color:white;">
+            <span class="responsive-text-15" style="display: inline">
+                 <span class="fa fa-upload"></span> {% trans 'Upload' %}     {% trans 'Book' %}
+            </span>
+        </div>
+        {% include 'book/includes/book-form-section.html' %}
+    </div>
+    <div class="fake-elms-container">
+        <input type="hidden" value="{{ book.slug }}" id="book_slug_id">
+    </div>
+    <div class="scripts-container">
+        {% include "general/general-urls-container.html" %}
+        {% include "book/includes/book-form-urls-container.html" %}
+        <script src="{% static 'js/general_javascript-101.js' %}"></script>
+        <script src="{% static 'js/book-form-0111.js' %}"></script>
+    </div>
+{% endblock %}

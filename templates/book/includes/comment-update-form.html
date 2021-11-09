@@ -1,0 +1,12 @@
+{% load i18n %}
+<form onsubmit="preventComFormDef(event, '{{ comment.id }}')" id="comment_form_updates_id{{ comment.id }}" method="post" action="" >{% csrf_token %}
+    {{ book_comment_form.comment }}
+    <div class="comments-btn-container">
+        <div class="btn-group-sm d-flex">
+            <button class="btn btn-primary" type="submit">
+                <span class="fa fa-save"></span>
+                <span class="responsive-text-15">{% trans 'Save' %}</span>
+            </button>
+        </div>
+    </div>
+</form>

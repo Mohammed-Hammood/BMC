@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% block head %}
+<style>
+    .single-object-container{
+        border:1px outset silver;
+        border-radius:5px;margin-bottom:15px;
+        color:black;background-color: white;
+        padding:15px;width:100%;display:block;
+    }
+    .single-object-container:hover{
+        text-decoration: none;
+        color: black;
+        background-color: #eeeeee;
+    }
+
+</style>
+{% endblock %}
+{% block body %}
+    <div  class="main-container" style="padding:0;color:white;margin:auto;">
+        <div class="card">
+            <div class="card-header bg-primary">
+                <strong class="responsive-text-15">{% trans 'Uploaders' %}</strong>
+            </div>
+            <div class="card-body">
+                <div class="main-form-container">
+                    <form method="get" action="" id="search_form_id">
+                        <div class="input-group mb-3">
+                            <input value="{{ request.GET.search }}" id="search_input_id" type="text" name="search" class="form-control responsive-text-15" placeholder="{% trans 'Search for uploaders' %}" style="z-index:1;">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary responsive-text-15" style="z-index:1;">
+                                    <span class="fa fa-search"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="result-container" style="color:black;">
+                    {% if request.GET.search or request.user.is_superuser %}
+                    <strong class="responsive-text-15">{% trans 'Result' %}: {{ total_objects }}</strong>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="profiles-container" style="margin-top:15px;color:black;">
+            <div class="main-objects-container" id="main_objects_container_id" >
+                {% for profile in profiles %}
+                    {% include "registration/single-profile-base.html" %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="main-objects-container" id="main_objects_loader_container_id" {% if total_objects < 5 %}style="display: none" {% endif %}>
+            {% include "general/objects-loader-base-container.html" %}
+        </div>
+    </div>
+    <div class="hidden-elm-container">
+        <input  type="hidden" value="{{ total_objects }}" id="total_objects_id">
+        <input  type="hidden" value="{{ request.GET.search }}" id="search_value_id">
+        <input  type="hidden" value="{{ request.GET.c }}" id="category_value_id">
+        {% include "general/general-urls-container.html" %}
+        <script src="{% static 'js/general_javascript-101.js' %}"></script>
+        <script src="{% static 'js/main-js.-223.js' %}"></script>
+    </div>
+    <div class="modals-container">
+        {% include "general/modals-container.html" %}
+    </div>
+{% endblock %}

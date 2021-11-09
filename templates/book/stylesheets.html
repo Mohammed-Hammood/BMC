@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block head %}
+    <title>{% block title %}{% trans 'Spreadsheets' %}{% endblock %}</title>
+    <style>
+    .card:hover{
+        background-color: red;
+        box-shadow: 10px 10px 20px black;
+    }
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="main-container" style="margin-bottom:15px;">
+        <div class="card" id="main_form_container_id">
+            <div class="card-header bg-primary" style="color:white;">
+                {% if total_objects > 0 %}<span class="fa fa-table"></span><span class="responsive-text-16"> {% trans "Spreadsheets" %}</span> (<span id="spreadsheet_count_cont_id">{{ total_objects }}</span>){% else %}
+                 <span class="responsive-text-16"> <a href="{{ profile.get_absolute_url }}" style="color:white;">{{ profile.user.get_full_name }}</a>
+                     {% trans "does not have any spreadsheet yet" %}</span>{% endif %}
+            </div>{% if request.user == profile.user %}
+            <div class="card-body" style="background-color:white;color:white;">
+                <div class="form-container">
+                    <form method="post" action="" enctype="multipart/form-data" id="spreadsheet_form_id" >
+                        <div class="input-group mb-3">
+                            <input style="z-index: 0;" class="form-control responsive-text-15" id="spreadsheet_input_id" type="text" placeholder="{% trans 'Spreadsheet title' %}" title="{% trans 'Type the title of the new spreadsheet' %}">
+                            <div class="input-group-prepend">
+                                <button type="submit" style="z-index: 0;" class="btn btn-primary responsive-text-15" >
+                                    <span class="fa fa-save"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>{% endif %}
+        </div>
+    </div>
+    <div class="main-container">
+        <div class="main-objects-container" id="main_objects_container_id">
+            {% for object in spreadsheets %}
+                {% include "book/includes/single-spreadsheet-base-container.html" %}
+            {% endfor %}
+        </div>
+        <div class="main-objects-loader-container" id="main_objects_loader_container_id" style="{% if total_objects <= 10 %}display:none;{% endif %}">
+            {% include "general/objects-loader-base-container.html" %}
+        </div>
+    </div>
+    <div class="hidden-container">
+        <input type="hidden" id="total_objects_id" value="{{ total_objects }}">
+        <input type="hidden" id="search_value_id" value="{{ request.GET.search }}">
+        <input type="hidden" id="search_form_id" >
+        <input type="hidden" id="parent_slug_id" value="{{ profile.user.username }}">
+        <input type="hidden" id="object_type_id" value="st">
+        <input type="hidden" id="material_value_id">
+        <input type="hidden" id="start_date_value_id">
+        <input type="hidden" id="end_date_value_id">
+        <input type="hidden" id="material_options_container_id">
+        <input type="hidden" id="id_material">
+        <input type="hidden" id="view_inc_type_id">
+    </div>
+    <div class="scripts-container">
+        {% include 'book/includes/book-main-urls-container.html' %}
+        <script src="{% static 'js/spreadsheet-212.js' %}"></script>
+    </div>
+{% endblock %}

@@ -1,0 +1,6 @@
+<div class="main-tags-container"  id="main_created_tags_container_id">
+    {% for tag in object.tags.all %}
+        {% include "general/tags-form-base-container.html" %}
+    {% endfor %}
+</div>
+<div class="tags-form-container responsive-text-15">{{ tags_form }}</div>

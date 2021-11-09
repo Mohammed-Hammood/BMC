@@ -1,0 +1,18 @@
+{% load i18n %}
+<div  class="single-object-container" href="{{ profile.get_absolute_url }}" id="{{ profile.id }}">
+    {% if request.user != profile.user %}
+    {% include "general/uploader-follow-base.html" %}
+    {% endif %}
+    <div class="img-container">
+        <a class="uploader-link" href="{{ profile.get_absolute_url }}" >
+        <img class="responsive-square-120" style="border:1px outset silver;border-radius:5px;" {% if profile.picture %}src="{{ profile.picture.url }}" {% else %}src="{{ profile.picture_cdn }}"{% endif %}>
+        </a>
+    </div>
+    <div class="responsive-text-15">
+        {% trans 'Uploader' %}:
+        <a class="card-link" href="{{ profile.get_absolute_url }}" >
+        {{ profile.user.get_full_name }}</a></div>
+    <div class="responsive-text-15">
+        {% trans 'Books' %}: {{ profile.user.books.count }}</div>
+
+</div>

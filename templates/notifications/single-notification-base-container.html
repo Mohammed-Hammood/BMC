@@ -1,0 +1,30 @@
+{% load i18n %}
+{% load class_name %}
+<a href="{{ item.link }}" style="color:black;" class="single-notification-container" id="{{ item.pk }}_single_notification_container_id">
+    <div class="card" style="margin-bottom:3px;">
+    <div class="card-body" >
+        <div class="picture-container" style="display: inline-block;">
+            {% if item.actor_content_object|class_name == "User" %}
+                {% for profile in profiles %}
+                    {% if profile.user == item.actor_content_object %}
+                        <img  {% if profile.picture %} src="{{ profile.picture.url }}" {% else %} src="{{ profile.picture_cdn }}" {% endif %} class="responsive-circle-45" />
+                        <span class="user-container responsive-text-13">
+                            {{ item.actor_content_object.get_full_name }}
+                        </span>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <strong class="responsive-text-15">{{ item.actor_content_object }}</strong>
+            {% endif %}
+        </div>
+        <span class="action-container responsive-text-13">{{ item.message }}</span>
+        <span class="timestamp-container responsive-text-10" >
+            {% if item.timestamp.date > comparing_time %}
+                ({{ item.timestamp|timesince }} {% trans 'ago' %})
+            {% else %}
+                {{ item.timestamp.date  }}
+            {% endif %}
+        </span>
+    </div>
+    </div>
+</a>

@@ -1,0 +1,106 @@
+{% load i18n %}
+<style>
+@media screen and (max-width: 300px) {
+    .icons-paginator-container {
+        display: none;
+    }
+}
+</style>
+<div class="pagination-container">
+    <ul class="pagination">
+        <li {% if objects_list.has_previous %}class="page-item responsive-text-14"
+            {% else %}class="page-item responsive-text-14 disabled" {% endif %}>
+            <a {% if objects_list.has_previous %}class="page-link responsive-text-14"
+             href="?{{ page }}=1" {% else %}class="page-link" {% endif %}>
+                <span class="icons-paginator-container"> &laquo;</span> {% trans 'First' %}
+            </a>
+        </li>
+        <li {% if objects_list.has_previous %}class="page-item responsive-text-14" {% else %}class="page-item disabled" {% endif %}>
+          <a {% if objects_list.has_previous %}class="page-link responsive-text-14" href="?{{ page }}={{ objects_list.previous_page_number }}" {% else %}class="page-link responsive-text-14" {% endif %}> {% trans 'Previous' %}
+          </a>
+        </li>
+        <li {% if objects_list.has_previous %} class="page-item display-none-text-575" {% else %} class="page-item display-none-text-410 disabled"{% endif %}>
+          <a class="page-link display-none-text-575" {% if objects_list.has_previous %} href="?{{ page }}={{ objects_list.previous_page_number }}"  {% endif %}>
+            {% if objects_list.has_previous %} {{ objects_list.previous_page_number }}{% else %} {{ objects_list.number }} {% endif %}
+          </a>
+        </li>
+        <li class="page-item active responsive-text-14" onclick="get_page_num()" id="page_num_container_id">
+            <button class="page-link responsive-text-14" href="#" id="num_pages_display_container_id">
+              {{ objects_list.number }} {% trans 'of' %} {{ objects_list.paginator.num_pages }}
+            </button>
+        </li>
+
+        <li {% if objects_list.has_next %} class="page-item display-none-text-575" {% else %}  class="page-item display-none-text-575 disabled" {{ objects_list.number }}{% endif %}>
+          <a class="page-link display-none-text-575" {% if objects_list.has_next %}
+            href="?{{ page }}={{ objects_list.next_page_number }}"{% endif %}>
+              {% if objects_list.has_next %} {{ objects_list.next_page_number }}{% else %}
+                  {{ objects_list.number }}
+                {% endif %}
+          </a>
+        </li>
+        <li  {% if objects_list.has_next %}class="page-item responsive-text-14"
+          {% else %}class="page-item  responsive-text-14 disabled" {% endif %}>
+          <a class="page-link responsive-text-14" {% if objects_list.has_next %}
+             href="?{{ page }}={{ objects_list.next_page_number }}"{% else %} {{ objects_list.number }} {% endif %}>
+            {% trans 'Next' %}
+          </a>
+        </li>
+        <li  {% if objects_list.has_next %}class="page-item responsive-text-14"
+          {% else %}class="page-item responsive-text-14 disabled" {% endif %}>
+          <a class="page-link responsive-text-14" {% if objects_list.has_next %}
+             href="{{ path }}?{{ page }}={{ objects_list.paginator.num_pages }}"{% else %}
+             {{ objects_list.number }} {% endif %}>{% trans 'Last' %}
+              <span class="icons-paginator-container"> &raquo;</span>
+          </a>
+        </li>
+    </ul>
+</div>
+<div class="modals-container">
+    <div class="modal" id="PaginationModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <strong class="responsive-text-15">{% trans "Move to a specific page" %}:</strong>
+                </div>
+                <div class="modal-body">
+                    <div class="info-container">
+                        <div class="responsive-text-15">
+                            {% trans "Current page" %}: {{ objects_list.number }}
+                        </div>
+                        <div class="responsive-text-15">
+                            {% trans "Total pages" %}: {{ objects_list.paginator.num_pages }}
+                        </div>
+                    </div>
+                    <form method="get" action="" >
+                        <div class="input-group" style="margin-top:10px;">
+                            <input title="{% trans 'Move to a new page' %}" id="page_num_input_id" type="number" class="form-control responsive-text-14" value="{{ objects_list.number }}" min="1" maxlength="{{ objects_list.paginator.num_pages }}" style="">
+                        </div>
+                         <div class="btn-group d-flex" style="margin-top:10px">
+                            <button id="move_page_btn_id" type="button" class="btn btn-primary w-100 responsive-text-15" >
+                                <span class="fa fa-mail-reply"></span> {% trans 'Move To' %}
+                            </button>
+                            <button data-dismiss="modal" class="btn btn-primary w-100 responsive-text-15" >
+                                <span class="fa fa-remove"></span> {% trans 'Cancel' %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var btn = document.getElementById("move_page_btn_id");
+    var a = document.getElementById("num_pages_display_container_id");
+    var input = document.getElementById("page_num_input_id");
+    function get_page_num(){
+        $("#PaginationModal").modal();
+    }
+        btn.addEventListener("click", get_page);
+        //input.addEventListener("change", get_page);
+        function get_page() {
+            var pathname  = document.location.pathname;
+            var origin = document.location.origin;
+            window.location = (origin+pathname+"?"+"{{ page }}"+"="+input.value);
+        }
+</script>

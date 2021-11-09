@@ -1,0 +1,22 @@
+{% load i18n %}
+{% load staticfiles %}
+<script>
+    var __upload_book_url__ = "{% url 'book_app:book-upload' %}";
+    var __upload_update_url__ = "{% url 'book_app:ajax-book-update' %}";
+    var __change_thumbnail_url__ = "{% url 'book_app:change-thumbnail' %}";
+
+</script>
+<script>
+    var uploading_canceled_text = "{% trans 'Uploading canceled' %}";
+    var uploading_finished_text = "{% trans 'Uploading finished' %}";
+    var uploading_started_text = "{% trans 'Uploading started, please wait' %}";
+    var uploading_error_text = "{% trans 'Some errors happened, please try again' %}";
+</script>
+
+<script about="img-src">
+    var __loader_progress_url__ = "{% static 'img/loaders/ajax-loader.gif' %}"
+</script>
+<script>
+    $.ajaxSetup({data: {csrfmiddlewaretoken: '{{ csrf_token }}'}});
+    var csrf_token = "{{ csrf_token }}";
+</script>

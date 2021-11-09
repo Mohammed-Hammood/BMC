@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% block body %}
+    <style>
+    .single-notification-container:hover{
+        text-decoration: none;
+    }
+    .card-body:hover {
+        color:black;
+        background-color: #f2f879;
+    }
+    </style>
+    <div class="main-notifications-container" id="main_notifications_container_id">
+    {% for item in notifications %}
+            {% include "notifications/single-notification-base-container.html" %}
+    {% endfor %}
+    </div>
+    <div class="main-objects-container" id="main_notifications_loader_container_id" {% if total_notifications <= 8 %}style="display:none;" {% endif %}>
+        {% include "general/objects-loader-base-container.html" %}
+    </div>
+    <div class="scripts-container">
+        <script>
+            var __notifications_loader_url__ = "{% url 'notifications_app:notifications-loader' %}";
+            $.ajaxSetup({data: {csrfmiddlewaretoken: '{{ csrf_token }}'}});
+            var csrf_token = "{{ csrf_token }}";
+        </script>
+        <input type="hidden" id="total_notifications_id" value="{{ total_notifications }}">
+        <script src="{% static 'js/notifications.js' %}"></script>
+    </div>
+{% endblock %}

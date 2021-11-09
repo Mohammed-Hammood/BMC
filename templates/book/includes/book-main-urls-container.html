@@ -1,0 +1,24 @@
+{% load i18n %}
+{% load staticfiles %}
+<script>
+    var __objects_loader_url__ = "{% url 'book_app:spreadsheets-loader' %}";
+    var __create_new_spreadsheet_url__ = "{% url 'book_app:create-spreadsheet' %}";
+    var __contributors_toggle_url__ = "{% url 'book_app:contributors-toggle' %}";
+    var __lecture_create_url__ = "{% url 'book_app:lecture-create' %}";
+    var __object_views_increment_url__ = "{% url 'book_app:views-increment' %}";
+
+</script>
+<script>
+    var uploading_canceled_text = "{% trans 'Uploading canceled' %}";
+    var uploading_finished_text = "{% trans 'Uploading finished' %}";
+    var uploading_started_text = "{% trans 'Uploading started, please wait' %}";
+    var uploading_error_text = "{% trans 'Some errors happened, please try again' %}";
+</script>
+
+<script about="img-src">
+    var __loader_progress_url__ = "{% static 'img/loaders/ajax-loader.gif' %}"
+</script>
+<script>
+    $.ajaxSetup({data: {csrfmiddlewaretoken: '{{ csrf_token }}'}});
+    var csrf_token = "{{ csrf_token }}";
+</script>

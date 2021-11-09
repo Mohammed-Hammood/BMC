@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block head %}
+    <title>{% block title %}{% trans 'Edit' %}: {{ lecture.title }}{% endblock %}</title>
+{% endblock %}
+{% block body %}
+    <div class="col-lg-6" style="padding:0;margin:auto;">
+            <div class="card" >
+        <div class="card-header bg-primary">
+            <span class="fa fa-edit"></span>
+            <strong>{% trans 'Edit' %}</strong>
+        </div>
+        <div class="card-body" >
+            <div class="single-section-container" id="main_loading_container_id" style="display: none;">
+                <div style="padding:5px;" class="uploaded-book-container" id="uploaded_book_container_id"></div>
+                <div class="responsive-text-15" style="display: flex;justify-content: center;">
+                    <div class="alert alert-success" id="text_alert_id" style="margin-top:10px;">{% trans 'Please Wait' %}</div>
+                </div>
+                <div class="progress-container" id="progress_container_id" style="padding:15px;display: flex;justify-content: center;">
+                    <progress class="responsive-text-15" value="0" max="100" id="book_progress_id" style="width:100%; height:30px;display: inline-block"></progress>
+                    <div class="responsive-text-15" id="percent_id" style="padding:3px;background: red;color:white;">0%</div><br>
+                </div>
+            </div>
+            <div class="lecture-form-container">
+                <div class="single-section-container" id="main_form_container_id" >
+            <form method="post" onsubmit="PrevLectFormEvent(event)" id="lecture_form_id" action="" enctype="multipart/form-data">{% csrf_token %}
+            <div class="inputs-container">
+            {% for field in lecture_form %}
+                {% include "general/form-template.html" %}
+            {% endfor %}
+            </div>
+            <div class="buttons-container">
+            <div class="btn-group d-flex">
+                <button type="submit" class="btn btn-primary w-100 responsive-text-15">
+                    <span class="fa fa-save"></span> {% trans 'Save' %}
+                </button>
+                <button type="reset" class="btn btn-primary w-100 responsive-text-15">
+                    <span class="fa fa-times"></span> {% trans 'Reset' %}
+                </button>
+            </div>
+            </div>
+            </form>
+            </div>
+            </div>
+        <div class="objects-container" id="main_objects_container_id"></div>
+        </div>
+    </div>
+    </div>
+        <div class="hidden-elements-container">
+        <input type="hidden" id="search_value_id" value="">
+        <input type="hidden" id="end_date_value_id" value="">
+        <input type="hidden" id="operation_value_id" value="u">
+        <input type="hidden" id="parent_slug_id" value="{{ lecture.spreadsheet.slug }}">
+        <input type="hidden" id="lecture_id" value="{{ lecture.id }}">
+        <input type="hidden" id="object_type_id" value="update">
+        <input type="hidden" id="spreadsheet_form_id" >
+    </div>
+    <div class="scripts-container">
+        {% include 'book/includes/book-main-urls-container.html' %}
+        <script src="{% static 'js/spreadsheet-212.js' %}"></script>
+    </div>
+{% endblock %}

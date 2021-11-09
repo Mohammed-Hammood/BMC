@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block head %}
+    <title>{% block title %}{{ doctor }}{% endblock %}</title>
+{% endblock %}
+{% block body %}
+    <div class="main-container">
+        <div class="info-container col-lg-8" style="padding:0;margin: auto;color:black;">
+            <div class="card">
+                <div class="card-body" style="padding:10px;display:block;">
+                    <div class="book-title-container" style="display: block;">
+                        <strong class="responsive-text-16" >{% trans 'Doctor' %}: {{ object }}</strong>
+                    </div><hr>
+                    <div class="doctor-img-container responsive-text-15" style="display: block">
+                        <a href="{{ object.doctor.get_absolute_url }}">
+                        <img style="border:1px outset silver; border-radius:3px;" {% if object.picture %}src="{{ object.picture.url }}" {% else %}src="{{ object.picture_cdn }}"{% endif %} class="responsive-square-120">
+                        </a>
+                    </div>{% if object.email %}
+                    <div class="email-container  responsive-text-15" >
+                        <strong>{% trans 'Email' %}:</strong>  {{ object.email }}
+                    </div>{% endif %}{% if object.phone_no %}
+                    <div class="phone-container  responsive-text-15" >
+                        <strong>{% trans 'Phone No' %}:</strong>  {{ object.phone_no }}
+                    </div>{% endif %}{% if object.birthday %}
+                    <div class="phone-container  responsive-text-15" >
+                        <strong>{% trans 'Bithday' %}:</strong> {{ object.birthday }}
+                    </div>{% endif %}{% if object.facebook %}
+                    <div class="account-container  responsive-text-15" >
+                        <strong>{% trans 'Account' %}:</strong>
+                        <a href="{{ object.facebook }}">{% trans 'Facebook' %}</a>
+                    </div>{% endif %}
+                    {% if request.user.is_superuser %}
+                    <div class="timestamp-container  responsive-text-15" style=" ">
+                        <strong>{% trans 'Published on' %}:</strong>  {{ object.timestamp }} ( {{ object.timestamp|timesince }} {% trans 'ago' %})
+                    </div>
+                    <div class="update-container  responsive-text-15" style=" ">
+                        <strong>{% trans 'Last update' %}:</strong>  {{ object.update }} ( {{ object.update|timesince }} {% trans 'ago' %})
+                    </div>
+                    {% if object.gender %}
+                    <div class="gender-container  responsive-text-15" >
+                        <strong>{% trans 'Gender' %}:</strong>  {{ object.gender }}
+                    </div>{% endif %}
+                    {% endif %}
+                    <div class="Lectures-container  responsive-text-15">
+                        <strong>{% trans 'Lectures' %}:</strong> {{ object.lecturemodel_set.count }}
+                    </div>
+                    {% if object.description %}
+                    <div class="description-container  responsive-text-15" style="background-color: #f3f3f3;color:black;border:1px outset silver;padding:10px 10px 0 10px;margin-top:10px;">
+                        <strong>{% trans 'Description' %}:</strong>
+                        {{ object.description|linebreaks }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="objects-container"  style="margin-top:15px;">
+            <div class="main-objects-container col-lg-8" id="main_objects_container_id" style="margin:auto;padding:0;">
+                {% for object in lectures %}
+                    {% include "book/includes/single-lecture-base-container.html" %}
+                {% endfor %}
+            </div>
+            <div class="main-objects-loader-container" id="main_objects_loader_container_id" style="{% if total_objects <= 10 %}display:none;{% endif %}">
+                {% include "general/objects-loader-base-container.html" %}
+            </div>
+        </div>
+    </div>
+    <div class="hidden-elements-container">
+        <input type="hidden" id="total_objects_id" {% if request.GET.material or request.GET.search %}value="{{ results_count }}"{% else %} value="{{ total_objects }}"{% endif %}>
+        <input type="hidden" id="search_value_id" value="{{ request.GET.search }}">
+        <input type="hidden" id="material_value_id" value="{{ request.GET.material }}">
+        <input type="hidden" id="start_date_value_id" value="{{ request.GET.from }}">
+        <input type="hidden" id="end_date_value_id" value="{{ request.GET.to }}">
+        <input type="hidden" id="operation_value_id" value="c">
+        <input type="hidden" id="parent_slug_id" value="{{ doctor.id }}">
+        <input type="hidden" id="lecture_id">
+        <input type="hidden" id="object_type_id" value="lr-by-dr">
+        <input type="hidden" id="spreadsheet_form_id" >
+    </div>
+    <div class="scripts-container">
+        {% include 'book/includes/book-main-urls-container.html' %}
+        <script src="{% static 'js/spreadsheet-212.js' %}"></script>
+    </div>
+{% endblock %}

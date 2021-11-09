@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block title %}{{ profile.user.get_full_name }}{% endblock %}
+{% block head %}
+{% endblock %}
+{% block body %}
+        <div class="card col-lg-6 col-md-6 col-sm-12" style="padding:0;margin: auto;">
+            <div class="card-header bg-danger">
+              <strong class="responsive-text-16">{% trans 'Confirm delete' %}</strong>
+            </div>
+            <div class="card-body responsive-text-15">
+                <form method="post" action="" enctype="multipart/form-data"> {% csrf_token %}
+                    <div class="text-container" >
+                       <div class="profile-container">
+                                <div  class="single-object-container" href="{{ profile.get_absolute_url }}" id="{{ profile.id }}">
+                                    <div class="responsive-text-15">
+                                        <a class="card-link" href="{{ profile.get_absolute_url }}" >{{ profile.user.get_full_name }}</a>
+                                    </div>
+                                    <div class="img-container">
+                                        <a class="uploader-link" href="{{ profile.get_absolute_url }}" >
+                                        <img class="responsive-square-120" style="border:1px outset silver;border-radius:5px;" {% if profile.picture %}src="{{ profile.picture.url }}" {% else %}src="{{ profile.picture_cdn }}"{% endif %}>
+                                        </a>
+                                    </div>
+
+                                </div>
+                       </div>
+                        <div class="alert alert-danger" style="margin-top:20px;">
+                           {% blocktrans %}Are you sure you want to delete your account.
+                            if you deleted your account, you can't restore it again.
+                           {% endblocktrans %}
+                        </div>{% with request.user.books.count as count %}
+                        <div class="object-related-container" style="margin-top:20px;{% if count < 1 %}display:none{% endif %}">
+                            <strong class="alert alert-info responsive-text-15">
+                                    {% if count == 1 %}
+                                        ({{ count }}) {% trans 'Book' %} {% trans " will also be deleted" %}
+                                    {% elif count > 1  %}
+                                        ({{ count }}) {% trans 'Books' %} {% trans " will also be deleted" %}
+                                    {% endif %}
+                            </strong>
+                        </div>{% endwith %}
+                    </div>
+                    <div class="buttons-container" style="margin-top:20px;">
+                        <div class="btn-group d-flex">
+                            <button type="submit" class="btn btn-primary w-100 responsive-text-15">
+                                <span class="fa fa-save"></span> {% trans 'delete' %}
+                            </button>
+                            <a href="{{ profile.get_absolute_url }}" class="btn btn-primary w-100 responsive-text-15">
+                                <span class="fa fa-times"></span> {% trans 'Cancel' %}
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+<title>{% block title %}{{ object.title }}{% endblock %}</title>
+{% block head %}
+    <!------- Book info for search engines --------->
+    <meta name="{% trans 'book title' %}" content="{{ object.title }}">
+    <meta name="{% trans 'description' %}" content="{{ object.description|truncatechars:500 }}" />
+    <meta name="{% trans 'keywords' %}" content="{% for tag in object.tags.all %}{{ tag.title }} {% endfor %}" />
+     <!------- end of Book info for search engines --------->
+{% endblock %}
+{% block body %}
+<div class="book-main-container" >
+    <div class="card" style="">
+        <div class="card-header bg-info" style="padding:10px;">
+            <div class="title-container" >
+                <strong class="card-title">{{ object.title }}</strong>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="uploader-container">
+                <img {% if profile.picture %}src="{{ profile.picture.url }}" {% else %}src="{{ profile.picture_cdn }}"{% endif %} class="responsive-circle-45">
+                <a class="card-link" href="{{ profile.get_absolute_url }}"><span class="responsive-text-15">{{ object.user.get_full_name }}</span></a>
+                {% if request.user != book.user %}
+                <div class="follow-container" style="display:inline-block">
+                    {% include "general/uploader-follow-base.html" %}
+                </div>{% endif %}
+            </div><hr>
+            <div class="cover-container">
+                 <div class="col-lg-2 col-md-3 col-sm-12">
+                    <div class="img-container">
+                        <img {% if object.thumbnail %}src="{{ object.thumbnail.url }}"{% else %} src="{{ object.thumbnail_cdn }}" {% endif %}class="img-fluid" style="border:2px outset silver; border-radius:10px;"/>
+                    </div>
+                </div>
+            </div>
+            <div class="info-container" style="margin-top:20px;">
+                <div class="category-container">
+                    <span class="fa fa-tags"></span>
+                    <span class="responsive-text-15">{% trans 'Category' %}:</span>
+                    <a href="{% url 'book_app:categories-view' category=object.category %}" > <span class="responsive-text-15">{{ object.category }}</span></a>
+                </div>
+                <div class="timestamp-container">
+                    <span class="fa fa-calendar"> </span>
+                    <span class="responsive-text-15">{% trans 'Published on' %}: {{ object.timestamp|date }} ( {{ object.timestamp|timesince }} {% trans 'ago' %})</span>
+                </div>
+                <div class="update-container">
+                    <span class="fa fa-calendar"> </span>
+                    <span class="responsive-text-15">{% trans 'Last updated' %}: </span>
+                        <span class="responsive-text-15">{{ object.update|date }} ( {{ object.update|timesince }} {% trans 'ago' %})</span>
+                </div>{% if object.file %}
+                <div class="size-container" >
+                    <span class="fa fa-inbox"> </span>
+                    <span class="responsive-text-15">{% trans 'Size' %}:
+                       {{ object.file.size |filesizeformat }}</span>
+                </div>{% endif %}
+                <div class="views-container" >
+                    <span class="fa fa-eye"> </span>
+                    <span class="responsive-text-15">{% trans 'Views' %}:
+                       {{ object.views }}</span>
+                </div>
+                <div class="download-container" >
+                     <span class="fa fa-download"> </span>
+                     <span class="responsive-text-15">{% trans 'Download' %} :
+                         {{ object.download }}</span>
+                </div>{% if object.tags.all %}
+                <div class="tags-container" >
+                     <span class="fa fa-tags"> </span><span class="responsive-text-15">{% trans 'Tags' %}:</span>
+                         {% for tag in object.tags.all %}
+                             {% include "general/tags-base-container.html" %}
+                         {% endfor %}
+                </div>{% endif %}
+            </div>
+            <div class="description-container" style="margin-top:20px;">
+                    <span class="responsive-text-15"> {{ object.description|linebreaksbr|urlizetrunc:30  }}</span>
+            </div>
+        </div>
+        <div class="buttons-container" style="margin-top:20px;">
+            <div class="basic-buttons-container">
+                <div class="basic-btns-container">
+                    <div class="btn-group d-flex">
+                        <button class="btn btn-light w-100 responsive-text-15" id="{{ object.type }}_like_btn_id_{{ object.slug }}" {% if request.user.is_authenticated %}onclick="objectLikeToggle('{{ object.slug }}', '{{ object.type }}')" {% else %}onclick="loginModal()"{% endif %} style="color:{% if user in object.like.all %}blue; {% else %} black;{% endif %}border-radius:0;">
+                            <span id="{{ object.type }}_like_count_id_{{ object.slug }}">{{ object.like.count }}</span>
+                            <i class="fa fa-thumbs-up"></i> <span class="display-none-text-410">{% trans 'Like' %}</span>
+                        </button>
+                        <button class="btn btn-light w-100 responsive-text-15" id="{{ object.type }}_dislike_btn_id_{{ object.slug }}" {% if request.user.is_authenticated %}onclick="objectDislikeToggle('{{ object.slug }}', '{{ object.type }}')" {% else %}onclick="loginModal()"{% endif %} style="color:{% if user in object.dislike.all %}blue; {% else %} black;{% endif %}">
+                            <span id="{{ object.type }}_dislike_count_id_{{ object.slug }}">{{ object.dislike.count }}</span>
+                            <i class="fa fa-thumbs-down"></i> <span class="display-none-text-410">{% trans 'Dislike' %}</span>
+                        </button>
+                        <button class="btn btn-light w-100 responsive-text-15" onclick="bookSectionsToggle('comments')">
+                            <i class="fa fa-comment"></i> <span class="display-none-text-410">{% trans 'Comment' %}</span>
+                        </button>
+                        <button  class="btn btn-light w-100 responsive-text-15" style="border-radius:0;" id="extra_btn_toggle_id">
+                            <i class="fa fa-bars"></i> <span class="display-none-text-410">{% trans 'More' %}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="extra-buttons-container" id="extra_buttons_container_id" style="display: none;">
+                <div class="btn-group d-flex" >
+                    <button class="btn btn-dark w-100 responsive-text-14" onclick="bookSectionsToggle('read_online')">
+                        <span class="fa fa-eye"></span>
+                        <span class="display-none-text-475">{% trans 'Read online' %}</span>
+                    </button>
+                    <button hidden id="comments_btn_id"></button>
+                    <button class="btn btn-dark w-100 responsive-text-14 "  id="share_btn_id"  onclick="bookSectionsToggle('share')">
+                        <span class="fa fa-share"></span>
+                        <span class="display-none-text-475">{% trans 'Share' %}</span>
+                    </button>
+                    <button  class="btn btn-dark w-100 responsive-text-14" onclick="bookSectionsToggle('download')">
+                        <span class="fa fa-download"></span>
+                        <span  class="display-none-text-475">{% trans "Download" %}</span>
+                    </button>
+                    {% if request.user == object.user %}
+                    <a class="btn btn-dark w-100 responsive-text-14" href="{{ object.get_delete_url }}">
+                        <span class="fa fa-trash"></span> <span  class="display-none-text-475">{% trans 'Delete' %}</span>
+                    </a>
+                    <a class="btn btn-dark w-100 responsive-text-14" href="{{ object.get_update_url }}" >
+                        <span class="fa fa-edit"></span>  <span  class="display-none-text-475">{% trans 'Edit' %}</span>
+                    </a>
+                    {% endif %}
+                 </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="book-comments-container" id="sections_container_id">
+                <div class="object-sections" id="comments_section_id">
+                    {% include 'general/general-comments-section-container.html' %}
+                </div>
+                <div class="object-sections" id="share_section_id" style="display:none;">
+                    {% include "general/share-links-base-container.html" %}
+                </div>
+                <div class="object-sections" id="download_section_id" style="display: none;">
+                    {% include "book/includes/book-detail-download-section.html" %}
+                </div>
+                <div class="object-sections" id="delete_section_id"></div>
+                <div class="object-sections" id="edit_section_id"></div>
+                <div class="object-sections" id="read_online_section_id" style="display: none;">
+                    <iframe {% if object.file %} src="{{ object.file.url }}"{% else %} src="{{ object.file_cdn }}"{% endif %} style="width:100%;height:500px;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="fake-models-container">
+    <input type="hidden" id="objects_load_btn_id">
+    <input hidden title=""  id="book_slug_id" value="{{ object.slug }}"/>
+</div>
+<div class="modals-container">
+    {% include "general/modals-container.html" %}
+</div>
+<div class="scripts-container">
+    {% include 'book/includes/book-detail-urls-container.html' %}
+    {% include 'general/general-urls-container.html' %}
+    <script src="{% static 'js/general_javascript-101.js' %}"></script>
+    <script src="{% static 'js/book-detail-123.js' %}"></script>
+</div>
+{% endblock %}

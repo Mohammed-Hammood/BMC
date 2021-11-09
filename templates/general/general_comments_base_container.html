@@ -1,0 +1,58 @@
+{% load i18n %}
+<div class="single-comment-container" id="single_comment_container_id_{{ comment.slug }}">
+    <div class="media" style="margin-top:30px;" id="comment_media_container_id_{{ comment.slug }}">
+        <div class="media-left">
+            <div class="profile-image-container">
+                {% for profile in profiles %}
+                    {% if profile.user == comment.user %}
+                       <img  {% if profile.picture %} src="{{ profile.picture.url}}"{% else %} src="{{ profile.picture_cdn }}" {% endif %}class="responsive-circle-45" />
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="dropdown" style="position: absolute;margin:5px 0 0 15px;" >
+                {% if request.user == comment.user or request.user == object.user %}
+                <a class="dropdown" data-toggle="dropdown" style="cursor: pointer; color: #3c3f41;">
+                    <span class="fa fa-ellipsis-v responsive-text-15"></span>
+                </a>{% endif %}
+                <ul class="dropdown-menu dropdown-menu-left">
+                    {% if request.user == comment.user %}
+                    <li class="dropdown-item" style="cursor: pointer;"  onclick="getGeneralCForm('{{ comment.slug }}', '{{ comment.type }}')">
+                        <span class="card-link responsive-text-15">
+                            <span class="fa fa-edit"></span> {% trans 'Update' %}
+                        </span>
+                    </li>{% endif %}
+                     {% if request.user == comment.user or request.user == object.user %}
+                    <li class="dropdown-item" style="cursor: pointer;" onclick="generalCommentDeletion('{{ object.slug }}','{{ comment.slug }}', '{{ comment.type }}')">
+                        <span class="card-link responsive-text-15" >
+                            <span class="fa fa-trash"></span> {% trans 'Delete' %}
+                        </span>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="media-body" style="margin-left: 2px;background:white; border-radius:15px;padding:10px;">
+            <a href="{{ comment.get_profile_url }}" class="responsive-text-15"> {{ comment.user.get_full_name }} </a>
+            <div class="comment-text-container">
+                <span class="responsive-text-15">{{ comment.comment|linebreaksbr|urlizetrunc:30 }}</span> <br>
+            </div>
+            <div class="like-dislike-container" style="display: inline;">
+                <div class="responsive-text-15" style="display: inline;float:left;">
+                    <div class="like-btn" onclick="generalCommentLikeToggle('{{ comment.slug }}', '{{ comment.type }}')" id="comment_like_btn_{{ comment.slug }}" style="margin-left:5px;float:left;display:inline;cursor:pointer;
+                        {% if request.user in comment.like.all %}color:blue;{% else %}color:black;{% endif %}">
+                        <span id="comment_like_count_{{ comment.slug }}">{{ comment.like.count }}</span>
+                        <span class="fa fa-thumbs-up"></span>
+                    </div>
+                    <div class="dislike-btn" onclick="generalCommentDislikeToggle('{{ comment.slug }}', '{{ comment.type }}')" id="comment_dislike_btn_{{ comment.slug }}" style="margin-left:10px;float:left;display:inline;cursor:pointer;
+                        {% if request.user in comment.dislike.all %}color:blue;{% else %}color:black;{% endif %}">
+                        <span id="comment_dislike_count_{{ comment.slug }}">{{ comment.dislike.count }}</span>
+                        <span class="fa fa-thumbs-down"></span>
+                    </div>
+                </div>
+                <div class="responsive-text-13" style="float:left;margin-left:10px;">
+                    <a href="" style="color: #9d9d9d;"> <span class="fa fa-clock"></span> {{ comment.timestamp|timesince }} {% trans 'ago' %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

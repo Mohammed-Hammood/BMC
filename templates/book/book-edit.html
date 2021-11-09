@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block title %}{% trans 'Update' %}{% endblock %}
+{% block body %}
+<div class="main-container col-lg-6 col-sm-12" style="margin:auto;padding:0px;">
+    <div class="card bg-primary responsive-text-15" style="padding:8px;color:white;">
+        <span class="responsive-text-15"><span class="fa fa-edit"></span> {% trans "Book Edit" %}</span>
+    </div>
+    <div class="card bg-basic" id="book-share-section"  >
+        <div class="main-book-form-container">
+            <div class="card-body" id="card_body_id">
+                <div class="loader-container" style="display:none;" id="loader_container_id">
+                    <div style="display: flex;justify-content: center;">
+                        <img src="{% static 'img/loaders/loader-circle-1.gif' %}" id="img_loader_id"  style="display:inline-block;margin-top:35px;height:50px;width:50px;">
+                    </div>
+                    <div style="display: flex;justify-content: center;margin-top:20px;">
+                        <span class="responsive-text-15" style="display: inline-block;">{% trans 'Please wait' %}</span>
+                    </div>
+                </div>
+                <div class="inputs-container" id="main_book_form_container_id" >
+                    <img id="img_id" class="responsive-square-120" {% if book.thumbnail %}src="{{ book.thumbnail.url }}" {% else %}src="{{ book.thumbnail_cdn }}"{% endif %} style="max-height:120px;max-width:120px;border:1px outset silver;border-radius:3px;display:block">
+                    <div class="file-input-container" style="margin-bottom:15px;color:white;padding:5px;display:flex; justify-content: center;background:blue;margin-top:10px;border-radius:3px;border:1px outset silver; height:30px; width:100px; ">
+                        <span style="position: absolute;" class="fa fa-edit"></span>
+                        <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+                            <input onchange="validFileInput()" style="opacity: 0;" type="file" name="thumbnail" accept="image/jpeg, image/jpg, image/png" id="id_thumbnail">
+                        </form>
+                    </div>
+                    <div class="form-container" style="margin-top:15px;">
+                        <form method="post" onsubmit="preventBookUpdateFormEvents(event)" enctype="multipart/form-data" action="">{% csrf_token %}
+                            <div class="forms-container" id="forms_container_id">
+                                {% for field in book_form %}
+                                    {% if field.name != "thumbnail" %}
+                                        {% include "general/form-template.html" %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="tags-container"  id="main_tags_container_id">
+                                {% include "general/main-tags-create-container.html" %}
+                            </div>
+                            <div class="btns-container" style="margin-top:15px;">
+                                <div class="btn-group d-flex">
+                                    <button id="upload_btn_id" type="submit" class="btn btn-primary w-100 responsive-text-15">
+                                        <span class="fa fa-save"></span> {% trans 'Save' %}
+                                    </button>
+                                    <button type="reset" id="cancel_btn_id" class="btn btn-default w-100 responsive-text-15">
+                                        <span class="fa fa-times"></span>
+                                        {% trans 'Cancel' %}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="fake-elms-container">
+    <input type="hidden" value="{{ book.slug }}" id="book_slug_id">
+    <input type="hidden" id="book_form_id">
+</div>
+<div class="scripts-container">
+    {% include "general/general-urls-container.html" %}
+    {% include "book/includes/book-form-urls-container.html" %}
+    <script src="{% static 'js/general_javascript-101.js' %}"></script>
+    <script src="{% static 'js/book-form-0111.js' %}"></script>
+</div>
+{% endblock %}

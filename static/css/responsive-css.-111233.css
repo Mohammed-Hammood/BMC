@@ -1,0 +1,905 @@
+ /*this for all apps */
+    .responsive-square-120{
+        height:120px;
+        width:120px;
+    }
+    .resp-vid-player-w-screen{
+        height:580px;
+        border:1px solid red;
+        background-color: #000000;
+    }
+    .resp-vid-player-n-screen{
+        height:472px;
+        border:1px solid red;
+        background-color: #000000;
+    }
+    .responsive-circle-100{
+        width:100px;
+        height:100px;
+        border-radius:100px;
+    }
+    .responsive-square-95{
+        height:94px;
+        width:168px;
+    }
+    .responsive-text-10{
+        font-size:10px;
+    }
+    .responsive-text-12{
+        font-size:12px;
+    }
+    .responsive-text-13{
+        font-size:13px;
+    }
+    .responsive-text-14{
+        font-size:14px;
+    }
+    .responsive-text-15{
+        font-size:15px;
+    }
+    .responsive-text-16{
+        font-size:16px;
+    }
+    .responsive-circle-45{
+        height:45px;
+        width:45px;
+        border-radius:25px;
+    }
+    .responsive-square-45{
+        height:45px;
+        width:45px;
+    }
+    .responsive-circle-30{
+        height:30px;
+        width:30px;
+        border-radius:15px;
+    }
+    .responsive-square-radius-45{
+        height:45px;
+        width:45px;
+        border-radius:5px;
+    }
+    .responsive-video-container{
+        height:160px;
+        width:200px;
+        display: block;
+        overflow: hidden;
+        float:left;
+        margin-right:5px;
+    }
+    .video-thumbnail-container{
+        width:100%;
+        object-fit: cover;
+        height:110px;
+        overflow: hidden;
+    }
+    .responsive-vid-text-container{
+        padding:5px;
+    }
+    .navbar-collapse{
+        width:100%;
+        display: flex;
+        justify-content: space-around;
+
+    }
+    .navbar-nav{
+        display: contents;
+    }
+
+
+
+@media screen and (max-width: 1401px){
+    .resp-vid-player-w-screen{
+        height:535px;
+    }
+    .resp-vid-player-n-screen{
+        height:418px;
+    }
+
+}
+@media screen and (max-width: 1351px){
+    .resp-vid-player-n-screen{
+        height:405px;
+    }
+}
+
+@media screen and (max-width: 1301px){
+    .resp-vid-player-w-screen{
+        height:495px;
+    }
+    .resp-vid-player-n-screen{
+        height:379px;
+    }
+}
+@media screen and (max-width: 1251px){
+    .resp-vid-player-w-screen{
+        height:495px;
+    }
+    .resp-vid-player-n-screen{
+    height:366px;
+    }
+}
+
+@media screen and (max-width: 1201px){
+    .resp-vid-player-w-screen{
+        height:455px;
+    }
+    .resp-vid-player-n-screen{
+        height:346px;
+    }
+}
+@media screen and (max-width: 1151px){
+    .resp-vid-player-n-screen{
+        height:327px;
+    }
+}
+@media screen and (max-width: 1101px){
+    .resp-vid-player-w-screen{
+        height:410px;
+    }
+    .resp-vid-player-n-screen{
+        height:307px;
+    }
+}
+
+@media screen and (max-width: 1051px){
+    .resp-vid-player-w-screen{
+        height:388px;
+    }
+    .responsive-circle-100{
+        width:90px;
+        height:90px;
+        border-radius:90px;
+    }
+    .resp-vid-player-n-screen{
+        height:287px;
+    }
+}
+
+@media screen and (max-width: 1025px){
+    .resp-vid-player-w-screen{
+        height:378px;
+    }    .resp-vid-player-n-screen{
+        height:378px;
+    }
+    .responsive-text-10{
+        font-size:10px;
+    }
+    .responsive-video-container{
+        height:190px;
+        width:226px;
+        margin:0 3px 5px 0;
+        display: inline-block;
+        float:left;
+    }
+    .video-thumbnail-container{
+        width:235px;
+        object-fit: cover;
+        height:130px;
+        display: inline-block;
+        margin:0;
+        float:left;
+    }
+    .responsive-vid-text-container{
+        padding:3px;
+        display:inline-block;
+    }
+}
+
+@media screen and (max-width: 1001px){
+    .resp-vid-player-w-screen{
+        height:369px;
+    }
+    .resp-vid-player-n-screen{
+        height:369px;
+    }
+    .responsive-circle-100{
+        width:85px;
+        height:85px;
+        border-radius:85px;
+    }
+
+}
+@media screen and (max-width: 950px){
+    .resp-vid-player-w-screen{
+        height:350px;
+    }
+    .resp-vid-player-n-screen{
+        height:350px;
+    }
+}
+
+@media screen and (max-width: 901px){
+    .resp-vid-player-w-screen{
+        height:470px;
+    }
+    .resp-vid-player-n-screen{
+        height:470px;
+    }
+    .responsive-circle-100{
+        width:80px;
+        height:80px;
+        border-radius:80px;
+    }
+    .responsive-square-120{
+        height:115px;
+        width:115px;
+    }
+}
+
+@media screen and (max-width: 801px){
+    .resp-vid-player-w-screen{
+        height:415px;
+    }
+    .resp-vid-player-n-screen{
+        height:415px;
+    }
+    .responsive-circle-100{
+        width:100px;
+        height:100px;
+        border-radius:100px;
+    }
+    .responsive-circle-100{
+        width:75px;
+        height:75px;
+        border-radius:75px;
+    }
+    .responsive-square-95{
+        height:92px;
+        width:162px;
+    }
+    .responsive-square-120{
+        height:110px;
+        width:110px;
+    }
+
+}
+
+@media screen and (max-width: 775px){
+    .resp-vid-player-w-screen{
+        height:400px;
+    }
+    .resp-vid-player-n-screen{
+        height:400px;
+    }
+    .responsive-text-13{
+        font-size:13px;
+    }
+    .responsive-text-14{
+        font-size:14px;
+    }
+    .responsive-text-15{
+        font-size:15px;
+    }
+    .responsive-text-16{
+        font-size:16px;
+    }
+    .display-none-text-320{
+        display:inline;
+        font-size:15px;
+    }
+    .display-none-text-375{
+        display:inline;
+        font-size:15px;
+    }
+    .display-none-text-410{
+        display:inline;
+        font-size:15px;
+    }
+    .display-none-text-450{
+        display:inline;
+        font-size:15px;
+    }
+    .display-none-text-475{
+        display:inline;
+        font-size:15px;
+    }
+    .display-none-text-510{
+        display:inline;
+        font-size:15px;
+    }
+    .display-none-text-575{
+        display:inline;
+        font-size:15px;
+    }
+    .display-none-text-675{
+        display:inline;
+        font-size:15px;
+    }
+    .display-none-text-775{
+        display:none;
+        font-size:15px;
+    }
+    .responsive-circle-45{
+        height:45px;
+        width:45px;
+        border-radius:25px;
+    }
+    .responsive-square-45{
+        height:43px;
+        width:43px;
+    }
+    .responsive-square-radius-45{
+        height:43px;
+        width:43px;
+        border-radius:5px;
+    }
+    .responsive-circle-30{
+        height:28px;
+        width:28px;
+        border-radius:14px;
+    }
+    .responsive-circle-100{
+        width:70px;
+        height:70px;
+        border-radius:70px;
+    }
+
+}
+
+@media screen and (max-width: 768px){
+    .responsive-text-10{
+        font-size:10px;
+    }
+    .resp-vid-player-w-screen{
+        height:410px;
+    }
+    .resp-vid-player-n-screen{
+        height:410px;
+    }
+    .responsive-video-container{
+        height:190px;
+        width:235px;
+        margin:0 3px 5px 0;
+        display: inline-block;
+        float:left;
+    }
+    .video-thumbnail-container{
+        width:235px;
+        object-fit: cover;
+        height:130px;
+        display: inline-block;
+        margin:0;
+        float:left;
+    }
+    .responsive-vid-text-container{
+        padding:3px;
+        display:inline-block;
+    }
+    .navbar-nav{
+        display: flex;
+    }
+    .navbar-collapse{
+        display: inline-block;
+    }
+}
+
+@media screen and (max-width: 675px){
+    .responsive-text-13{
+        font-size:12px;
+    }
+    .responsive-text-12{
+        font-size:11px;
+    }
+    .responsive-text-14{
+        font-size:13px;
+    }
+    .responsive-text-15{
+        font-size:14px;
+    }
+    .responsive-text-16{
+        font-size:15px;
+    }
+    .display-none-text-320{
+        display:inline;
+        font-size:15px;
+    }
+    .display-none-text-375{
+        display:inline;
+        font-size:14px;
+    }
+    .display-none-text-410{
+        display:inline;
+        font-size:14px;
+    }
+    .display-none-text-450{
+        display:inline;
+        font-size:14px;
+    }
+    .display-none-text-475{
+        display:inline;
+        font-size:14px;
+    }
+    .display-none-text-510{
+        display:inline;
+        font-size:14px;
+    }
+    .display-none-text-575{
+        display:inline;
+        font-size:14px;
+    }
+    .display-none-text-675{
+        display:none;
+        font-size:14px;
+    }
+    .display-none-text-775{
+        display:none;
+        font-size:14px;
+    }
+    .responsive-circle-45{
+        height:40px;
+        width:40px;
+        border-radius:20px;
+    }
+    .responsive-square-45{
+        height:41px;
+        width:41px;
+    }
+    .responsive-square-radius-45{
+        height:41px;
+        width:41px;
+        border-radius:5px;
+    }
+    .responsive-circle-30{
+        height:26px;
+        width:26px;
+        border-radius:13px;
+    }
+    .resp-vid-player-w-screen{
+        height:358px;
+    }
+    .resp-vid-player-n-screen{
+        height:358px;
+    }
+    .responsive-circle-100{
+        width:65px;
+        height:65px;
+        border-radius:65px;
+    }
+    .responsive-square-120{
+        height:95px;
+        width:95px;
+    }
+}
+
+@media screen and (max-width: 575px){
+    .responsive-text-13{
+        font-size:11px;
+    }
+    .responsive-text-12{
+        font-size:10px;
+    }
+    .responsive-text-14{
+        font-size:12px;
+    }
+    .responsive-text-15{
+        font-size:13px;
+    }
+    .responsive-text-16{
+        font-size:14px;
+    }
+    .display-none-text-320{
+        display:inline;
+        font-size:13px;
+    }
+    .display-none-text-375{
+        display:inline;
+        font-size:13px;
+    }
+    .display-none-text-410{
+        display:inline;
+        font-size:13px;
+    }
+    .display-none-text-450{
+        display:inline;
+        font-size:13px;
+    }
+    .display-none-text-475{
+        display:inline;
+        font-size:13px;
+    }
+    .display-none-text-510{
+        display:inline;
+        font-size:13px;
+    }
+    .display-none-text-575{
+        display:none;
+
+    }
+    .responsive-circle-45{
+        height:40px;
+        width:40px;
+        border-radius:20px;
+    }
+    .responsive-square-45{
+        height:40px;
+        width:40px;
+
+    }
+    .responsive-square-radius-45{
+        height:40px;
+        width:40px;
+        border-radius:5px;
+    }
+    .responsive-circle-30{
+        height:22px;
+        width:22px;
+        border-radius:11px;
+    }
+    .resp-vid-player-w-screen{
+        height:302px;
+    }
+    .resp-vid-player-n-screen{
+        height:302px;
+    }
+    .responsive-square-120{
+        height:85px;
+        width:85px;
+    }
+
+}
+
+@media screen and (max-width: 511px){
+    .responsive-text-13{
+        font-size:10px;
+    }
+    .responsive-text-12{
+        font-size:9px;
+    }
+    .responsive-text-14{
+        font-size:11px;
+    }
+    .responsive-text-15{
+        font-size:12px;
+    }
+    .responsive-text-16{
+        font-size:13px;
+    }
+    .display-none-text-320{
+        display:inline;
+        font-size:15px;
+    }
+    .display-none-text-375{
+        display:inline;
+        font-size:13px;
+    }
+    .display-none-text-410{
+        display:inline;
+        font-size:13px;
+    }
+    .display-none-text-450{
+        display:inline;
+        font-size:13px;
+    }
+    .display-none-text-475{
+        display:inline;
+        font-size:13px;
+    }
+    .display-none-text-510{
+        display:none;
+    }
+    .responsive-circle-45{
+        height:38px;
+        width:38px;
+        border-radius:19px;
+    }
+    .responsive-square-45{
+        height:38px;
+        width:38px;
+
+    }
+    .responsive-square-radius-45{
+        height:38px;
+        width:38px;
+        border-radius:5px;
+    }
+    .responsive-circle-30{
+        height:24px;
+        width:24px;
+        border-radius:12px;
+    }
+    .responsive-circle-30{
+        height:20px;
+        width:20px;
+        border-radius:10px;
+    }
+    .resp-vid-player-w-screen{
+        height:265px;
+    }
+    .resp-vid-player-n-screen{
+        height:265px;
+    }
+    .responsive-circle-100{
+        width:60px;
+        height:60px;
+        border-radius:60px;
+    }
+    .responsive-square-95{
+        height:85px;
+        width:155px;
+    }
+
+}
+
+@media screen and (max-width: 475px){
+    .display-none-text-475{
+        display:none;
+    }
+    .display-none-text-450{
+        display:inline;
+        font-size:12px;
+    }
+    .responsive-circle-45{
+        height:35px;
+        width:35px;
+        border-radius:19px;
+    }
+    .responsive-square-45{
+        height:35px;
+        width:35px;
+    }
+    .responsive-square-radius-45{
+        height:35px;
+        width:35px;
+        border-radius:5px;
+    }
+    .responsive-circle-30{
+        height:18px;
+        width:18px;
+        border-radius:9px;
+    }
+    .resp-vid-player-w-screen{
+        height:246px;
+    }
+    .resp-vid-player-n-screen{
+        height:246px;
+    }
+    .responsive-square-95{
+        height:70px;
+        width:130px;
+    }
+
+}
+
+@media screen and (max-width: 469px){
+    .responsive-video-container{
+        height:110px;
+        width:100%;
+        margin:0 0 4px 0;
+        display: inline-block;
+        float:left;
+    }
+    .video-thumbnail-container{
+        width:200px;
+        object-fit: cover;
+        height:110px;
+        display: inline-block;
+        margin:0;
+        float:left;
+    }
+    .responsive-vid-text-container{
+        padding:2px;
+        display:inline-block;
+    }
+}
+
+@media screen and (max-width: 450px){
+    .responsive-text-13{
+        font-size:10px;
+    }
+    .responsive-text-12{
+        font-size:8px;
+    }
+    .responsive-text-14{
+        font-size:11px;
+    }
+    .responsive-text-15{
+        font-size:12px;
+    }
+    .responsive-text-16{
+        font-size:13px;
+    }
+    .display-none-text-320{
+        display:inline;
+        font-size:15px;
+    }
+    .display-none-text-375{
+        display:inline;
+        font-size:13px;
+    }
+    .display-none-text-410{
+        display:inline;
+        font-size:13px;
+    }
+    .display-none-text-450{
+        display:none;
+    }
+    .responsive-square-45{
+        height:32px;
+        width:32px;
+    }
+    .responsive-square-radius-45{
+        height:32px;
+        width:32px;
+        border-radius:5px;
+    }
+    .responsive-circle-30{
+        height:16px;
+        width:16px;
+        border-radius:8px;
+    }
+    .resp-vid-player-w-screen{
+        height:231px;
+    }
+    .resp-vid-player-n-screen{
+        height:231px;
+    }
+}
+
+@media screen and (max-width: 415px){
+    .responsive-text-10{
+        font-size:9px
+    }
+    .responsive-text-13{
+        font-size:9px;
+    }
+    .responsive-text-12{
+        font-size:7px;
+    }
+    .responsive-text-14{
+        font-size:10px;
+    }
+    .responsive-text-15{
+        font-size:11px;
+    }
+    .responsive-text-16{
+        font-size:12px;
+    }
+    .display-none-text-320{
+        display:inline;
+        font-size:12px;
+    }
+    .display-none-text-375{
+        display:inline;
+        font-size:12px;
+    }
+    .display-none-text-410{
+        display:none;
+    }
+    .responsive-square-45{
+        height:30px;
+        width:30px;
+    }
+    .responsive-square-radius-45{
+        height:30px;
+        width:30px;
+        border-radius:5px;
+    }
+    .responsive-circle-30{
+        height:14px;
+        width:14px;
+        border-radius:7px;
+    }
+    .resp-vid-player-w-screen{
+        height:209px;
+    }
+    .resp-vid-player-n-screen{
+        height:209px;
+    }
+    .responsive-circle-100{
+        width:55px;
+        height:55px;
+        border-radius:55px;
+    }
+    .responsive-video-container{
+        height:110px;
+        width:100%;
+        margin:0 0 4px 0;
+        display: inline-block;
+        float:left;
+    }
+    .video-thumbnail-container{
+        width:200px;
+        object-fit: cover;
+        height:110px;
+        display: inline-block;
+        margin:0;
+        float:left;
+    }
+    .responsive-vid-text-container{
+        padding:2px;
+        display:inline-block;
+    }
+}
+
+@media screen and (max-width: 376px){
+    .display-none-text-375{
+        display:none;
+    }
+    .resp-vid-player-w-screen{
+        height:189px;
+    }
+    .resp-vid-player-n-screen{
+        height:189px;
+    }
+    .responsive-video-container{
+        height:230px;
+        width:320px;
+        margin:0 0 4px 0;
+        display: block;
+    }
+    .video-thumbnail-container{
+        width:100%;
+        object-fit: cover;
+        height:180px;
+        display: block;
+        margin:0;
+    }
+}
+
+@media screen and (max-width: 360px){
+    .responsive-text-13{
+        font-size:9px;
+    }
+    .responsive-text-14{
+        font-size:10px;
+    }
+    .responsive-text-15{
+        font-size:11px;
+    }
+    .responsive-text-16{
+        font-size:12px;
+    }
+    .display-none-text-320{
+        display:inline;
+        font-size:12px;
+    }
+    .display-none-text-360{
+        display:none;
+    }
+    .resp-vid-player-w-screen{
+        height:181px;
+    }
+    .resp-vid-player-n-screen{
+        height:181px;
+    }
+}
+
+@media screen and (max-width: 320px){
+    .responsive-text-13{
+        font-size:9px;
+    }
+    .responsive-text-14{
+        font-size:10px;
+    }
+    .responsive-text-15{
+        font-size:11px;
+    }
+    .responsive-text-16{
+        font-size:12px;
+    }
+    .display-none-text-320{
+        display:none;
+    }
+    .resp-vid-player-w-screen{
+        height:159px;
+    }
+    .resp-vid-player-n-screen{
+        height:159px;
+    }
+    .responsive-circle-100{
+        width:50px;
+        height:50px;
+        border-radius:50px;
+    }
+    .responsive-video-container{
+        height:200px;
+        width:270px;
+        margin:0 0 4px 0;
+    }
+    .video-thumbnail-container{
+        width:100%;
+        object-fit: cover;
+        height:150px;
+    }
+}

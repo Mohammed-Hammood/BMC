@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block head %}
+    <title>{% block title %}{% trans 'Edit' %}: {{ spreadsheet.title }}{% endblock %}</title>
+{% endblock %}
+{% block body %}
+    <div class="col-lg-6" style="padding:0;margin:auto;">
+            <div class="card" >
+        <div class="card-header bg-primary">
+            <span class="fa fa-edit"></span>
+            <strong>{% trans 'Edit' %}</strong>
+        </div>
+        <div class="card-body" >
+            <form method="post"  enctype="multipart/form-data" >{% csrf_token %}
+                <div class="forms-container">
+                    <div class="inputs-container">
+                        {% for field in spreadsheet_form %}
+                                {% include "general/form-template.html" %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="buttons-container" style="margin-top:15px;">
+                    <div class="btn-group d-flex">
+                        <button id="upload_btn_id" type="submit" class="btn btn-primary w-100 responsive-text-15">
+                            <span class="fa fa-save"></span> {% trans 'Save' %}
+                        </button>
+                        <a href="{{ spreadsheet.get_absolute_url }}" class="btn btn-primary w-100 responsive-text-15">
+                            <span class="fa fa-times"></span>
+                            {% trans 'Cancel' %}
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+{% endblock %}
